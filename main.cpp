@@ -16,7 +16,7 @@ int main() {
 
     myBank.createAccount(1000, *myBank.getClientById(36753562));
 
-    std::cout << to_String(myBank.getClientByIban("FR76OIGSZ8FXQQQVJJ5IIU531GVYX99BWD")->getCreationDate());
+    //std::cout << to_String(myBank.getClientByIban("FR76OIGSZ8FXQQQVJJ5IIU531GVYX99BWD")->getCreationDate());
 
     myBank.printMyClients();
 
