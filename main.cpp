@@ -3,6 +3,7 @@
 #include "entity/Time.h"
 #include "entity/Iban.h"
 #include "entity/Address.h"
+#include "Transaction.h"
 #include "Client.h"
 #include "Account.h"
 #include "Bank.h"
@@ -17,6 +18,7 @@ int main() {
     myBank.createAccount(1000, *myBank.getClientById(36753562));
 
     myBank.printMyClients();
+
 
     return 0;
 }

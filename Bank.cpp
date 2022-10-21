@@ -52,6 +52,14 @@ void Bank::printMyClients() {
 }
 
 
+void Bank::accountPayment(Iban& srcIban, Iban& destIban, const unsigned int& value) {
+    Account srcAccount = this->getAccountByIban(srcIban);
+    Account destAccount = this->getAccountByIban(destIban);
+
+    srcAccount.setBalance(value);
+    destAccount.setBalance(value);
+}
+
 Client * Bank::getClientById(unsigned int id) {
 
     for (auto & _myClient : this->_myClients) {

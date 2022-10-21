@@ -32,6 +32,10 @@ void Account::setStatut(Statut statut) {
     _statut = statut;
 }
 
+void Account::setBalance(unsigned int value) {
+    this->_balance = _balance - value;
+}
+
 bool isAccount(const int &balance, const Iban &iban, const Date &creationDate) {
 
     if (balance < 0)

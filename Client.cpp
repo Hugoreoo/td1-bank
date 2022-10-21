@@ -40,7 +40,6 @@ void Client::printMyAccounts() {
             std::cout << "Statut: Locked" << std::endl;
         else
             std::cout << "Statut: Unlocked" << std::endl;
-        //std::cout << std::endl << "-------------| END |-------------" << std::endl;
     }
 
 }

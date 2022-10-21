@@ -8,6 +8,7 @@
 #include <iostream>
 #include "entity/Date.h"
 #include "entity/Address.h"
+#include "Transaction.h"
 #include <vector>
 
 class Account;
@@ -23,6 +24,8 @@ public:
     void deleteClient(Client* client);
     void deleteAccount(Account& account);
 
+    void accountPayment(Iban& srcIban, Iban& destIban, const unsigned int& value);
+
     Client * getClientById(unsigned int id);
     Account * getAccountByIban(const std::string& iban);
     void printMyClients();
@@ -30,7 +33,7 @@ public:
 private:
     std::vector<Client> _myClients;
     std::vector<Account> _myAccounts;
-    //std::vector<Transaction> _myHistory;
+    std::vector<Transaction> _myHistory;
 
 };
 

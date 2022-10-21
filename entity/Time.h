@@ -11,7 +11,7 @@ class Time {
 
 public:
 
-    Time(unsigned int hour, unsigned int minute, unsigned int second);
+    Time(unsigned int hour, unsigned int minute, unsigned int second = 0);
 
     [[nodiscard]] unsigned int getHour() const;
     [[nodiscard]] unsigned int getMinute() const;
