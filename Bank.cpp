@@ -18,7 +18,9 @@ void Bank::createClient(const std::string& name, const std::string& firstname, i
 }
 
 void Bank::createAccount(int balance, Client& client) {
-    _myAccounts.push_back(*client.addAccount(balance, client));
+    Account *test = client.addAccount(balance, client);
+    std::cout << "create: " << test << std::endl;
+    _myAccounts.push_back(*test);
 }
 
 
@@ -39,12 +41,13 @@ void Bank::deleteAccount(Account& account) {
 
 void Bank::printMyClients() {
 
-    for (auto & _myClient : _myClients) {
+    for (int i = 0; i < this->_myClients.size(); ++i)
+    {
         std::cout << std::endl << "----------------| Client |----------------" << std::endl;
-        std::cout << "ID: " << _myClient.getId();
-        std::cout << "  Name: " << _myClient.getName();
-        std::cout << "  Firstname: " << _myClient.getFirstname();
-        _myClient.printMyAccounts();
+        std::cout << "ID: " << _myClients.at(i).getId();
+        std::cout << "  Name: " << _myClients.at(i).getName();
+        std::cout << "  Firstname: " << _myClients.at(i).getFirstname();
+        _myClients.at(i).printMyAccounts();
         std::cout << std::endl << "-----------------| END |-----------------" << std::endl;
     }
 
@@ -52,20 +55,32 @@ void Bank::printMyClients() {
 }
 
 
-void Bank::accountPayment(Iban& srcIban, Iban& destIban, const unsigned int& value) {
-    Account srcAccount = this->getAccountByIban(srcIban);
-    Account destAccount = this->getAccountByIban(destIban);
+void Bank::accountPayment(std::string srcIban, std::string destIban, const unsigned int& value) {
+    Account *srcAccount = nullptr;
+    Account *destAccount = nullptr;
 
-    srcAccount.setBalance(value);
-    destAccount.setBalance(value);
+    for (int i = 0; i < this->_myAccounts.size(); ++i)
+    {
+        if(to_String(_myAccounts.at(i).getIban()) == srcIban)
+            srcAccount = &_myAccounts.at(i);
+        if(to_String(_myAccounts.at(i).getIban()) == destIban)
+            destAccount = &_myAccounts.at(i);
+    }
+
+    srcAccount->setBalance(-value);
+    destAccount->setBalance(value);
+
+    std::cout << std::endl << "srcAccount: " << &srcAccount << std::endl;
+    std::cout << std::endl << "destAccount: " << &destAccount << std::endl;
 }
 
-Client * Bank::getClientById(unsigned int id) {
+Client * Bank::getClientById(const unsigned int& id) {
 
-    for (auto & _myClient : this->_myClients) {
+    for (int i = 0; i < this->_myClients.size(); ++i)
+    {
 
-        if(_myClient.getId() == id) {
-            return &_myClient;
+        if(_myClients.at(i).getId() == id) {
+            return &_myClients.at(i);
         }
     }
     assert(false && "Client does not exist");
@@ -74,12 +89,19 @@ Client * Bank::getClientById(unsigned int id) {
 
 Account *Bank::getAccountByIban(const std::string& iban) {
 
+    for (int i = 0; i < this->_myAccounts.size(); ++i)
+    {
+        if(to_String(_myAccounts.at(i).getIban()) == iban) {
+            return &_myAccounts.at(i);
+        }
+    }
+/*
     for (auto &_myAccount: this->_myAccounts) {
-
+        std::cout << "getAccountByIban: " << &this->_myAccounts.at(1) << std::endl;
         if(to_String(_myAccount.getIban()) == iban) {
             return &_myAccount;
         }
-    }
+    }*/
     assert(false && "Account does not exist");
 }
 

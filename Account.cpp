@@ -33,7 +33,7 @@ void Account::setStatut(Statut statut) {
 }
 
 void Account::setBalance(unsigned int value) {
-    this->_balance = _balance - value;
+    this->_balance = _balance + value;
 }
 
 bool isAccount(const int &balance, const Iban &iban, const Date &creationDate) {

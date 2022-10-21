@@ -24,19 +24,30 @@ Client::Client(const std::string &name, const std::string &firstname, const Date
 
 Account* Client::addAccount(int balance, Client& client) {
     this->_myAccounts.emplace_back(balance, client);
+    for (int i = 0; i < this->_myAccounts.size(); ++i)
+    {
+        std::cout << "add:   " << &_myAccounts.at(i) << std::endl;
+    }
+    
     return &this->_myAccounts.at(this->_myAccounts.size()-1);
 }
 
 void Client::printMyAccounts() {
 
-    for (auto & _myAccount : _myAccounts) {
+    for (int i = 0; i < this->_myAccounts.size(); ++i)
+    {
+        std::cout << std::endl << "printMyAccounts: " << &this->_myAccounts.at(i) << std::endl;
+    }
+
+    for (int i = 0; i < this->_myAccounts.size(); ++i)
+    {
         std::cout << std::endl << "------------| Account |------------" << std::endl;
-        std::cout << "Balance: " << _myAccount.getBalance() << "E";
-        std::cout << "  IBAN: " << to_String(_myAccount.getIban()) << std::endl;
-        std::cout << "Creation: " << to_String(_myAccount.getCreationDate()) << std::endl;
+        std::cout << "Balance: " << this->_myAccounts.at(i).getBalance() << "E";
+        std::cout << "  IBAN: " << to_String(this->_myAccounts.at(i).getIban()) << std::endl;
+        std::cout << "Creation: " << to_String(this->_myAccounts.at(i).getCreationDate()) << std::endl;
         std::cout << "Name: " << this->getName() << "   Firstname: " << this->getFirstname() << "   ID: " << this->getId() << std::endl;
 
-        if(isAccountLocked(_myAccount))
+        if(isAccountLocked(_myAccounts.at(i)))
             std::cout << "Statut: Locked" << std::endl;
         else
             std::cout << "Statut: Unlocked" << std::endl;

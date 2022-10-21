@@ -24,9 +24,9 @@ public:
     void deleteClient(Client* client);
     void deleteAccount(Account& account);
 
-    void accountPayment(Iban& srcIban, Iban& destIban, const unsigned int& value);
+    void accountPayment(std::string srcIban, std::string destIban, const unsigned int& value);
 
-    Client * getClientById(unsigned int id);
+    Client * getClientById(const unsigned int& id);
     Account * getAccountByIban(const std::string& iban);
     void printMyClients();
 
