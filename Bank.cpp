@@ -4,6 +4,7 @@
 
 #include <utility>
 #include <cassert>
+#include <algorithm>
 #include "Client.h"
 #include "Account.h"
 #include "Bank.h"
@@ -15,6 +16,26 @@ void Bank::createClient(const std::string& name, const std::string& firstname, i
     this->_myClients.emplace_back(name, firstname, Date(birthMonth, birthDay, birthYear), email, phoneNumber, Address(addressNumber, std::move(addressStreet), std::move(addressCity), addressZipCode));
 
 }
+
+void Bank::createAccount(int balance, Client& client) {
+    _myAccounts.push_back(*client.addAccount(balance, client));
+}
+
+
+
+//TO DO LATER
+/*void Bank::deleteClient(Client* client) {
+    delete(client);
+    std::vector<Client>::iterator position = std::find(_myClients.begin(), _myClients.end(), client);
+    if(position != _myClients.end())
+        _myClients.erase(position);
+
+    //_myClients.erase(std::remove(_myClients.begin(), _myClients.end(), client), _myClients.end());
+}
+
+void Bank::deleteAccount(Account& account) {
+    //delete(Account);
+}*/
 
 void Bank::printMyClients() {
 
@@ -30,9 +51,6 @@ void Bank::printMyClients() {
 
 }
 
-void Bank::createAccount(int balance, Client& client) {
-    _myAccounts.push_back(*client.addAccount(balance, client));
-}
 
 Client * Bank::getClientById(unsigned int id) {
 
@@ -46,7 +64,7 @@ Client * Bank::getClientById(unsigned int id) {
 
 }
 
-Account *Bank::getClientByIban(const std::string& iban) {
+Account *Bank::getAccountByIban(const std::string& iban) {
 
     for (auto &_myAccount: this->_myAccounts) {
 
@@ -54,6 +72,6 @@ Account *Bank::getClientByIban(const std::string& iban) {
             return &_myAccount;
         }
     }
-    assert(false && "Client does not exist");
+    assert(false && "Account does not exist");
 }
 

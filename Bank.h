@@ -19,10 +19,12 @@ class Bank {
 public:
 
     void createClient(const std::string& name, const std::string& firstname, int birthMonth, int birthDay, int birthYear, const std::string& email, const std::string& phoneNumber, int addressNumber, std::string addressStreet, std::string addressCity, int addressZipCode);
+    void createAccount(int balance, Client& client);
+    void deleteClient(Client* client);
+    void deleteAccount(Account& account);
 
     Client * getClientById(unsigned int id);
-    Account * getClientByIban(const std::string& iban);
-    void createAccount(int balance, Client& client);
+    Account * getAccountByIban(const std::string& iban);
     void printMyClients();
 
 private:
