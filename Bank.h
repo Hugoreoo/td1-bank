@@ -12,7 +12,7 @@
 
 class Account;
 class Client;
-//class History;
+class Transaction;
 
 class Bank {
 
@@ -30,7 +30,7 @@ public:
 private:
     std::vector<Client> _myClients;
     std::vector<Account> _myAccounts;
-    //std::list<History> _myHistory;
+    //std::vector<Transaction> _myHistory;
 
 };
 
