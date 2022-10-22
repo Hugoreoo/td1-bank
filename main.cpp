@@ -11,9 +11,14 @@ int main() {
     myBank.createAccount(2000, myBank.getClientById(36753562));
     myBank.createAccount(3000, myBank.getClientById(6261879));
 
-    myBank.accountPayment("FR76QQQVJJ5IIU531GVYX99BWDEKBUTAJ8" , "FR7689EE4DX9WFKHYLDT0RI92F2WFE7OOQ", 236);
+    //myBank.lockedAccount("FR76QQQVJJ5IIU531GVYX99BWDEKBUTAJ8");
+
+    myBank.accountPayment("FR76QQQVJJ5IIU531GVYX99BWDEKBUTAJ8" , "FR7689EE4DX9WFKHYLDT0RI92F2WFE7OOQ", 236, "kdo");
+    myBank.accountDeposit("FR76QQQVJJ5IIU531GVYX99BWDEKBUTAJ8", 2000);
+    myBank.accountWithdrawal("FR76QQQVJJ5IIU531GVYX99BWDEKBUTAJ8", 100);
 
     myBank.printMyClients();
+    myBank.printMyHistorical();
 
     return 0;
 }

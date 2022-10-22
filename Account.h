@@ -9,7 +9,7 @@
 #include "Date.h"
 #include "Client.h"
 
-enum Statut {Unlocked, Locked};
+enum Statut {UNLOCKED, LOCKED};
 
 class Client;
 class Account {
@@ -22,6 +22,7 @@ public:
     [[nodiscard]] const Date &getCreationDate() const;
     [[nodiscard]] Statut getStatut() const;
     void setBalance(unsigned int value);
+    void setStatutt(const Statut& statut);
 
 private:
     Client _myClient;

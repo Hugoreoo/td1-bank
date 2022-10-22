@@ -6,7 +6,7 @@
 #include <cassert>
 
 Account::Account(int balance, Client& myClient) : _balance(balance), _myClient(myClient), _iban(Iban()), _creationDate(getCurrentDate()),
-                                                                     _statut(Unlocked) {
+                                                                     _statut(UNLOCKED) {
 
     bool statut = isAccount(balance, _iban, _creationDate);
     assert(statut && "Account is not valid");
@@ -36,6 +36,11 @@ void Account::setBalance(unsigned int value) {
     this->_balance = _balance + value;
 }
 
+void Account::setStatutt(const Statut& statut) 
+{
+    this->_statut = statut;
+}
+
 bool isAccount(const int &balance, const Iban &iban, const Date &creationDate) {
 
     if (balance < 0)
@@ -46,7 +51,7 @@ bool isAccount(const int &balance, const Iban &iban, const Date &creationDate) {
 
 bool isAccountLocked(const Account &account) {
 
-    if (account.getStatut() == Locked)
+    if (account.getStatut() == LOCKED)
         return true;
     return false;
 

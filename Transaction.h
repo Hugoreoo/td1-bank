@@ -15,11 +15,12 @@ enum TransactionType {PAYMENT, DEPOSIT, WITHDRAWAL};
 class Transaction {
 
 public:
-    Transaction(TransactionType transactionType, Account *account, Date date, Time time, unsigned int value, std::string message, bool statut);
+    Transaction(TransactionType transactionType, Account *destAccount, Date date, Time time, unsigned int value, Account *srcAccount = nullptr, std::string message = "none", bool statut = true);
 
     [[nodiscard]] TransactionType getTransactionType() const;
-    [[nodiscard]] Account getAccount() const;
-    [[nodiscard]] Date getDate() const;
+    [[nodiscard]] Account getSrcAccount() const;
+    [[nodiscard]] Account getDestAccount() const;
+    Date getDate() const;
     [[nodiscard]] Time getTime() const;
     [[nodiscard]] unsigned int getValue() const;
     [[nodiscard]] std::string getMessage() const;
@@ -28,7 +29,8 @@ public:
 
 private:
     TransactionType _transactionType;
-    Account *_account;
+    Account *_srcAccount;
+    Account *_destAccount;
     Date _date;
     Time _time;
     unsigned int _value;
@@ -37,6 +39,6 @@ private:
 
 };
 
-std::string to_String(const Transaction &transaction);
+std::string to_String(const Transaction *transaction);
 
 #endif //TD1_address_H

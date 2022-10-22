@@ -6,16 +6,20 @@
 #include <iostream>
 #include <cassert>
 
-Transaction::Transaction(TransactionType transactionType, Account *account, Date date, Time time, unsigned int value, std::string message, bool statut) :
-    _transactionType(transactionType), _account(account), _date(date), _time(time), _value(value), _message(message), _statut(statut) {
+Transaction::Transaction(TransactionType transactionType, Account *destAccount, Date date, Time time, unsigned int value, Account *srcAccount, std::string message, bool statut) :
+    _transactionType(transactionType), _destAccount(destAccount), _date(date), _time(time), _value(value), _srcAccount(srcAccount), _message(message), _statut(statut) {
 }
 
 TransactionType Transaction::getTransactionType() const {
     return _transactionType;
 }
 
-Account Transaction::getAccount() const {
-    return *_account;
+Account Transaction::getSrcAccount() const {
+    return *_srcAccount;
+}
+
+Account Transaction::getDestAccount() const {
+    return *_destAccount;
 }
 
 Date Transaction::getDate() const {
@@ -38,25 +42,26 @@ bool Transaction::getStatut() const {
     return _statut;
 }
 
-std::string to_String(const Transaction &transaction) {
+std::string to_String(const Transaction *transaction) {
     std::string transactionType, statut;
     
-    if(transaction.getStatut() == PAYMENT)
+    if(transaction->getStatut() == PAYMENT)
         transactionType = "PAYMENT";
-    else if (transaction.getStatut() == DEPOSIT)
+    else if (transaction->getStatut() == DEPOSIT)
         transactionType = "DEPOSIT";
-    else if (transaction.getStatut() == WITHDRAWAL)
+    else if (transaction->getStatut() == WITHDRAWAL)
         transactionType = "WITHDRAWAL";
     else assert(false && "to_String() transaction error.");
 
-    if(transaction.getStatut() == false)
+    if(transaction->getStatut() == false)
         statut = "Echec";
     else statut = "Succes";
 
     return "| " + transactionType 
-            + " | IBAN: " + to_String(transaction.getAccount().getIban()) 
-            + " | Value: " + std::to_string(transaction.getValue())
-            + " | At: " + to_String(transaction.getDate()) + " " + to_String(transaction.getTime())
-            + " | Mess: " + transaction.getMessage()
+            + " | From: " + to_String(transaction->getSrcAccount().getIban()) 
+            + " | To: " + to_String(transaction->getDestAccount().getIban()) 
+            + " | Value: " + std::to_string(transaction->getValue())
+            + " | At: " + to_String(transaction->getDate()) + " " + to_String(transaction->getTime())
+            + " | Mess: " + transaction->getMessage()
             + " | Statut: " + statut + " |";
 }

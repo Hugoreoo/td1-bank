@@ -28,18 +28,20 @@ void Client::setAccount(Account * account) {
 
 void Client::printMyAccounts() {
 
-    for (int i = 0; i < this->_myAccounts.size(); ++i)
+    for (long unsigned int i = 0; i < this->_myAccounts.size(); ++i)
     {
-        std::cout << std::endl << "------------| Account |------------" << std::endl;
-        std::cout << "Balance: " << this->_myAccounts.at(i)->getBalance() << "E";
+        std::cout << std::endl << std::endl << "-------------------------------| Account |-------------------------------" << std::endl;
+        std::cout << "\tBalance: " << this->_myAccounts.at(i)->getBalance() << "E";
         std::cout << "  IBAN: " << to_String(this->_myAccounts.at(i)->getIban()) << std::endl;
-        std::cout << "Creation: " << to_String(this->_myAccounts.at(i)->getCreationDate()) << std::endl;
-        std::cout << "Name: " << this->getName() << "   Firstname: " << this->getFirstname() << "   ID: " << this->getId() << std::endl;
+        std::cout << "\tCreation: " << to_String(this->_myAccounts.at(i)->getCreationDate()) << std::endl;
+        std::cout << "\tName: " << this->getName() << "   Firstname: " << this->getFirstname() << "   ID: " << this->getId() << std::endl;
 
         if(isAccountLocked(*_myAccounts.at(i)))
-            std::cout << "Statut: Locked" << std::endl;
+            std::cout << "\tStatut: Locked" << std::endl;
         else
-            std::cout << "Statut: Unlocked" << std::endl;
+            std::cout << "\tStatut: Unlocked" << std::endl;
+
+        std::cout << "-------------------------------------------------------------------------";
     }
 
 }
