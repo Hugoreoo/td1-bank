@@ -18,11 +18,11 @@ int main() {
     myBank.createAccount(1000, *myBank.getClientById(36753562));
     myBank.createAccount(2000, *myBank.getClientById(36753562));
 
-    //myBank.printMyClients();
-
     myBank.accountPayment("FR76OIGSZ8FXQQQVJJ5IIU531GVYX99BWD" , "FR76EKBUTAJ889EE4DX9WFKHYLDT0RI92F", 200);
-    /*myBank.getAccountByIban("FR76OIGSZ8FXQQQVJJ5IIU531GVYX99BWD")->setBalance(20);
-    std::cout << myBank.getAccountByIban("FR76OIGSZ8FXQQQVJJ5IIU531GVYX99BWD")->getBalance();*/
+
+    std::cout << "balance main:" << myBank.getAccountByIban("FR76OIGSZ8FXQQQVJJ5IIU531GVYX99BWD")->getBalance() << std::endl;
+    std::cout << "balance main:" << myBank.getAccountByIban("FR76EKBUTAJ889EE4DX9WFKHYLDT0RI92F")->getBalance() << std::endl;
+
     myBank.printMyClients();
 
     return 0;

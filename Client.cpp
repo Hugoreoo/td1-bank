@@ -22,21 +22,16 @@ Client::Client(const std::string &name, const std::string &firstname, const Date
 
 }
 
-Account* Client::addAccount(int balance, Client& client) {
-    this->_myAccounts.emplace_back(balance, client);
-    for (int i = 0; i < this->_myAccounts.size(); ++i)
-    {
-        std::cout << "add:   " << &_myAccounts.at(i) << std::endl;
-    }
-    
-    return &this->_myAccounts.at(this->_myAccounts.size()-1);
+void Client::setAccount(Account& account) {
+    this->_myAccounts.emplace_back(account);
+    std::cout << "test: " << &account << std::endl;
 }
 
 void Client::printMyAccounts() {
 
     for (int i = 0; i < this->_myAccounts.size(); ++i)
     {
-        std::cout << std::endl << "printMyAccounts: " << &this->_myAccounts.at(i) << std::endl;
+        std::cout << std::endl << "printMyAccounts: " << this->_myAccounts.at(i).getBalance() << std::endl;
     }
 
     for (int i = 0; i < this->_myAccounts.size(); ++i)

@@ -18,9 +18,11 @@ void Bank::createClient(const std::string& name, const std::string& firstname, i
 }
 
 void Bank::createAccount(int balance, Client& client) {
-    Account *test = client.addAccount(balance, client);
-    std::cout << "create: " << test << std::endl;
-    _myAccounts.push_back(*test);
+    _myAccounts.push_back(Account(balance, client));
+    client.setAccount(_myAccounts.at(_myAccounts.size() - 1));
+    
+    /*Account monCompte(balance, client);
+    _myAccounts.push_back(*client.addAccount(balance, client));*/
 }
 
 
@@ -41,6 +43,8 @@ void Bank::deleteAccount(Account& account) {
 
 void Bank::printMyClients() {
 
+    //std::cout << "ouiiiiiiiii: " << this->_myClients.at(0).getMyAccount << std::endl;
+
     for (int i = 0; i < this->_myClients.size(); ++i)
     {
         std::cout << std::endl << "----------------| Client |----------------" << std::endl;
@@ -56,22 +60,28 @@ void Bank::printMyClients() {
 
 
 void Bank::accountPayment(std::string srcIban, std::string destIban, const unsigned int& value) {
-    Account *srcAccount = nullptr;
-    Account *destAccount = nullptr;
+    this->getAccountByIban(srcIban)->setBalance(-value);
+    this->getAccountByIban(destIban)->setBalance(value);
 
-    for (int i = 0; i < this->_myAccounts.size(); ++i)
+    /*for (int i = 0; i < this->_myAccounts.size(); ++i)
     {
         if(to_String(_myAccounts.at(i).getIban()) == srcIban)
             srcAccount = &_myAccounts.at(i);
         if(to_String(_myAccounts.at(i).getIban()) == destIban)
             destAccount = &_myAccounts.at(i);
-    }
+    }*/
+
+    /*std::cout << std::endl << "srcAccount: " << &srcAccount << std::endl;
+    std::cout << std::endl << "destAccount: " << &destAccount << std::endl;
 
     srcAccount->setBalance(-value);
     destAccount->setBalance(value);
 
-    std::cout << std::endl << "srcAccount: " << &srcAccount << std::endl;
-    std::cout << std::endl << "destAccount: " << &destAccount << std::endl;
+    std::cout << std::endl << "srcAccount balance: " << srcAccount->getBalance() << std::endl;
+    std::cout << std::endl << "destAccount balance: " << destAccount->getBalance() << std::endl;
+
+    std::cout << this->getAccountByIban(srcIban)->getBalance();*/
+
 }
 
 Client * Bank::getClientById(const unsigned int& id) {

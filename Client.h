@@ -27,7 +27,7 @@ public:
     [[nodiscard]] const Date &getCreationDate() const;
     [[nodiscard]] const std::vector<Account> &getMyAccounts() const;
 
-    Account* addAccount(int balance, Client& client);
+    void setAccount(Account& account);
     void printMyAccounts();
 
 private:
