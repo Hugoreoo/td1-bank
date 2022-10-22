@@ -7,8 +7,8 @@
 
 #include <iostream>
 #include <vector>
-#include "entity/Address.h"
-#include "entity/Date.h"
+#include "Address.h"
+#include "Date.h"
 
 class Account;
 
@@ -19,19 +19,20 @@ public:
 
     [[nodiscard]] const std::string &getName() const;
     [[nodiscard]] const std::string &getFirstname() const;
-    [[nodiscard]] const Date &getBirthday() const;
-    [[nodiscard]] const std::string &getEmail() const;
-    [[nodiscard]] const std::string &getPhoneNumber() const;
     [[nodiscard]] unsigned int getId() const;
-    [[nodiscard]] const Address &getAddress() const;
-    [[nodiscard]] const Date &getCreationDate() const;
-    [[nodiscard]] const std::vector<Account> &getMyAccounts() const;
+    [[maybe_unused]] [[nodiscard]] const Date &getBirthday() const;
+    [[maybe_unused]] [[nodiscard]] const std::string &getEmail() const;
+    [[maybe_unused]] [[nodiscard]] const std::string &getPhoneNumber() const;
+    [[maybe_unused]] [[nodiscard]] const Address &getAddress() const;
+    [[maybe_unused]] [[nodiscard]] const Date &getCreationDate() const;
+    [[maybe_unused]] [[nodiscard]] const std::vector<Account *> &getMyAccounts() const;
+    [[maybe_unused]] void setName(const std::string &name);
 
-    void setAccount(Account& account);
+    void setAccount(Account* account);
     void printMyAccounts();
 
 private:
-    std::vector<Account> _myAccounts;
+    std::vector<Account *> _myAccounts;
     std::string _name;
     std::string _firstname;
     Date _birthday;

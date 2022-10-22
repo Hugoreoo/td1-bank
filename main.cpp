@@ -1,11 +1,3 @@
-#include <iostream>
-#include "entity/Date.h"
-#include "entity/Time.h"
-#include "entity/Iban.h"
-#include "entity/Address.h"
-#include "Transaction.h"
-#include "Client.h"
-#include "Account.h"
 #include "Bank.h"
 
 int main() {
@@ -13,15 +5,13 @@ int main() {
     Bank myBank;
 
     myBank.createClient("Goncalves", "Hugo", 03, 12, 2001, "oui@oui", "048975389", 5, "Rue Courtepee", "DIJON", 21000);
-    myBank.createClient("ezef", "zef", 03, 12, 2001, "zefzef@oui", "04897533389", 5, "Rue Courtepee", "DIJON", 21000);
+    myBank.createClient("Benameur", "Camil", 07, 23, 2001, "dhtzefzeeef@oui", "04897533389", 5, "Rue Courtepee", "DIJON", 21000);
+    myBank.createClient("test", "test", 07, 23, 2001, "dhtzefzeeef@oui", "04897533389", 5, "Rue Courtepee", "DIJON", 21000);
 
-    myBank.createAccount(1000, *myBank.getClientById(36753562));
-    myBank.createAccount(2000, *myBank.getClientById(36753562));
+    myBank.createAccount(2000, myBank.getClientById(36753562));
+    myBank.createAccount(3000, myBank.getClientById(6261879));
 
-    myBank.accountPayment("FR76OIGSZ8FXQQQVJJ5IIU531GVYX99BWD" , "FR76EKBUTAJ889EE4DX9WFKHYLDT0RI92F", 200);
-
-    std::cout << "balance main:" << myBank.getAccountByIban("FR76OIGSZ8FXQQQVJJ5IIU531GVYX99BWD")->getBalance() << std::endl;
-    std::cout << "balance main:" << myBank.getAccountByIban("FR76EKBUTAJ889EE4DX9WFKHYLDT0RI92F")->getBalance() << std::endl;
+    myBank.accountPayment("FR76QQQVJJ5IIU531GVYX99BWDEKBUTAJ8" , "FR7689EE4DX9WFKHYLDT0RI92F2WFE7OOQ", 236);
 
     myBank.printMyClients();
 

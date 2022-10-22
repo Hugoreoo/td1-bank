@@ -5,8 +5,8 @@
 #ifndef TD1_ACCOUNT_H
 #define TD1_ACCOUNT_H
 
-#include "entity/Iban.h"
-#include "entity/Date.h"
+#include "Iban.h"
+#include "Date.h"
 #include "Client.h"
 
 enum Statut {Unlocked, Locked};
@@ -15,7 +15,7 @@ class Client;
 class Account {
 
 public:
-    Account(int balance, Client myClient);
+    Account(int balance, Client& myClient);
 
     [[nodiscard]] int getBalance() const;
     [[nodiscard]] const Iban &getIban() const;
@@ -30,7 +30,7 @@ private:
     const Date _creationDate;
     Statut _statut;
 
-    void setStatut(Statut statut);
+    [[maybe_unused]] void setStatut(Statut statut);
 };
 
 bool isAccount(const int &balance, const Iban &iban, const Date &creationDate);

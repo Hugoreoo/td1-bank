@@ -13,105 +13,66 @@ void Bank::createClient(const std::string& name, const std::string& firstname, i
                         const std::string& email, const std::string& phoneNumber, int addressNumber, std::string addressStreet,
                         std::string addressCity, int addressZipCode) {
 
-    this->_myClients.emplace_back(name, firstname, Date(birthMonth, birthDay, birthYear), email, phoneNumber, Address(addressNumber, std::move(addressStreet), std::move(addressCity), addressZipCode));
+    this->_myClients.push_back(new Client(name, firstname, Date(birthMonth, birthDay, birthYear), email, phoneNumber, Address(addressNumber, std::move(addressStreet), std::move(addressCity), addressZipCode)));
 
 }
 
-void Bank::createAccount(int balance, Client& client) {
-    _myAccounts.push_back(Account(balance, client));
-    client.setAccount(_myAccounts.at(_myAccounts.size() - 1));
-    
-    /*Account monCompte(balance, client);
-    _myAccounts.push_back(*client.addAccount(balance, client));*/
+void Bank::createAccount(int balance, Client* client){
+
+    _myAccounts.push_back(new Account(balance, *client));
+    client->setAccount(_myAccounts.at(_myAccounts.size() - 1));
 }
 
-
-
-//TO DO LATER
-/*void Bank::deleteClient(Client* client) {
-    delete(client);
-    std::vector<Client>::iterator position = std::find(_myClients.begin(), _myClients.end(), client);
-    if(position != _myClients.end())
-        _myClients.erase(position);
-
-    //_myClients.erase(std::remove(_myClients.begin(), _myClients.end(), client), _myClients.end());
-}
-
-void Bank::deleteAccount(Account& account) {
-    //delete(Account);
-}*/
 
 void Bank::printMyClients() {
-
-    //std::cout << "ouiiiiiiiii: " << this->_myClients.at(0).getMyAccount << std::endl;
 
     for (int i = 0; i < this->_myClients.size(); ++i)
     {
         std::cout << std::endl << "----------------| Client |----------------" << std::endl;
-        std::cout << "ID: " << _myClients.at(i).getId();
-        std::cout << "  Name: " << _myClients.at(i).getName();
-        std::cout << "  Firstname: " << _myClients.at(i).getFirstname();
-        _myClients.at(i).printMyAccounts();
+        std::cout << "ID: " << _myClients.at(i)->getId();
+        std::cout << "  Name: " << _myClients.at(i)->getName();
+        std::cout << "  Firstname: " << _myClients.at(i)->getFirstname();
+        _myClients.at(i)->printMyAccounts();
         std::cout << std::endl << "-----------------| END |-----------------" << std::endl;
     }
-
 
 }
 
 
-void Bank::accountPayment(std::string srcIban, std::string destIban, const unsigned int& value) {
+void Bank::accountPayment(const std::string& srcIban, const std::string& destIban, int value)
+{
+    if(value < 0)
+        value *= -1;
+
+    if(this->getAccountByIban(srcIban)->getBalance() - value < 0)
+        assert(false && "Balance account insufficient.");
+
     this->getAccountByIban(srcIban)->setBalance(-value);
     this->getAccountByIban(destIban)->setBalance(value);
-
-    /*for (int i = 0; i < this->_myAccounts.size(); ++i)
-    {
-        if(to_String(_myAccounts.at(i).getIban()) == srcIban)
-            srcAccount = &_myAccounts.at(i);
-        if(to_String(_myAccounts.at(i).getIban()) == destIban)
-            destAccount = &_myAccounts.at(i);
-    }*/
-
-    /*std::cout << std::endl << "srcAccount: " << &srcAccount << std::endl;
-    std::cout << std::endl << "destAccount: " << &destAccount << std::endl;
-
-    srcAccount->setBalance(-value);
-    destAccount->setBalance(value);
-
-    std::cout << std::endl << "srcAccount balance: " << srcAccount->getBalance() << std::endl;
-    std::cout << std::endl << "destAccount balance: " << destAccount->getBalance() << std::endl;
-
-    std::cout << this->getAccountByIban(srcIban)->getBalance();*/
-
 }
 
 Client * Bank::getClientById(const unsigned int& id) {
 
     for (int i = 0; i < this->_myClients.size(); ++i)
     {
-
-        if(_myClients.at(i).getId() == id) {
-            return &_myClients.at(i);
+        if(_myClients.at(i)->getId() == id) {
+            return _myClients.at(i);
         }
     }
     assert(false && "Client does not exist");
 
+    return nullptr;
 }
 
-Account *Bank::getAccountByIban(const std::string& iban) {
+Account * Bank::getAccountByIban(const std::string& iban) {
 
     for (int i = 0; i < this->_myAccounts.size(); ++i)
     {
-        if(to_String(_myAccounts.at(i).getIban()) == iban) {
-            return &_myAccounts.at(i);
+        if(to_String(_myAccounts.at(i)->getIban()) == iban) {
+            return _myAccounts.at(i);
         }
     }
-/*
-    for (auto &_myAccount: this->_myAccounts) {
-        std::cout << "getAccountByIban: " << &this->_myAccounts.at(1) << std::endl;
-        if(to_String(_myAccount.getIban()) == iban) {
-            return &_myAccount;
-        }
-    }*/
     assert(false && "Account does not exist");
+    return nullptr;
 }
 

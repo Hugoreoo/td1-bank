@@ -22,27 +22,21 @@ Client::Client(const std::string &name, const std::string &firstname, const Date
 
 }
 
-void Client::setAccount(Account& account) {
-    this->_myAccounts.emplace_back(account);
-    std::cout << "test: " << &account << std::endl;
+void Client::setAccount(Account * account) {
+    this->_myAccounts.push_back(account);
 }
 
 void Client::printMyAccounts() {
 
     for (int i = 0; i < this->_myAccounts.size(); ++i)
     {
-        std::cout << std::endl << "printMyAccounts: " << this->_myAccounts.at(i).getBalance() << std::endl;
-    }
-
-    for (int i = 0; i < this->_myAccounts.size(); ++i)
-    {
         std::cout << std::endl << "------------| Account |------------" << std::endl;
-        std::cout << "Balance: " << this->_myAccounts.at(i).getBalance() << "E";
-        std::cout << "  IBAN: " << to_String(this->_myAccounts.at(i).getIban()) << std::endl;
-        std::cout << "Creation: " << to_String(this->_myAccounts.at(i).getCreationDate()) << std::endl;
+        std::cout << "Balance: " << this->_myAccounts.at(i)->getBalance() << "E";
+        std::cout << "  IBAN: " << to_String(this->_myAccounts.at(i)->getIban()) << std::endl;
+        std::cout << "Creation: " << to_String(this->_myAccounts.at(i)->getCreationDate()) << std::endl;
         std::cout << "Name: " << this->getName() << "   Firstname: " << this->getFirstname() << "   ID: " << this->getId() << std::endl;
 
-        if(isAccountLocked(_myAccounts.at(i)))
+        if(isAccountLocked(*_myAccounts.at(i)))
             std::cout << "Statut: Locked" << std::endl;
         else
             std::cout << "Statut: Unlocked" << std::endl;
@@ -56,27 +50,36 @@ const std::string &Client::getName() const {
 const std::string &Client::getFirstname() const {
     return _firstname;
 }
-const Date &Client::getBirthday() const {
+
+[[maybe_unused]] const Date &Client::getBirthday() const {
     return _birthday;
 }
-const std::string &Client::getEmail() const {
+
+[[maybe_unused]] const std::string &Client::getEmail() const {
     return _email;
 }
-const std::string &Client::getPhoneNumber() const {
+
+[[maybe_unused]] const std::string &Client::getPhoneNumber() const {
     return _phoneNumber;
 }
 unsigned int Client::getId() const {
     return _id;
 }
-const Address &Client::getAddress() const {
+
+[[maybe_unused]] const Address &Client::getAddress() const {
     return _address;
 }
-const Date &Client::getCreationDate() const {
+
+[[maybe_unused]] const Date &Client::getCreationDate() const {
     return _creationDate;
 }
 
-const std::vector<Account> &Client::getMyAccounts() const {
+[[maybe_unused]] const std::vector<Account *> &Client::getMyAccounts() const {
     return _myAccounts;
+}
+
+[[maybe_unused]] void Client::setName(const std::string &name) {
+    _name = name;
 }
 
 bool isClient(const std::string &name, const std::string &firstname, const Date &birthday, const std::string &email,

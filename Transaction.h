@@ -7,8 +7,8 @@
 
 #include <iostream>
 #include "Account.h"
-#include "entity/Date.h"
-#include "entity/Time.h"
+#include "Date.h"
+#include "Time.h"
 
 enum TransactionType {PAYMENT, DEPOSIT, WITHDRAWAL};
 

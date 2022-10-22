@@ -4,10 +4,10 @@
 
 #include "Account.h"
 #include <cassert>
-#include <utility>
 
-Account::Account(int balance, Client myClient) : _balance(balance), _myClient(std::move(myClient)), _iban(Iban()), _creationDate(getCurrentDate()),
+Account::Account(int balance, Client& myClient) : _balance(balance), _myClient(myClient), _iban(Iban()), _creationDate(getCurrentDate()),
                                                                      _statut(Unlocked) {
+
     bool statut = isAccount(balance, _iban, _creationDate);
     assert(statut && "Account is not valid");
 }
@@ -28,7 +28,7 @@ Statut Account::getStatut() const {
     return _statut;
 }
 
-void Account::setStatut(Statut statut) {
+[[maybe_unused]] void Account::setStatut(Statut statut) {
     _statut = statut;
 }
 
