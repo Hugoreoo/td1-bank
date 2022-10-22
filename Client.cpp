@@ -31,7 +31,7 @@ void Client::printMyAccounts() {
     for (long unsigned int i = 0; i < this->_myAccounts.size(); ++i)
     {
         std::cout << std::endl << std::endl << "-------------------------------| Account |-------------------------------" << std::endl;
-        std::cout << "\tBalance: " << this->_myAccounts.at(i)->getBalance() << "E";
+        std::cout << "\tBalance: " << this->_myAccounts.at(i)->getBalance() << "e";
         std::cout << "  IBAN: " << to_String(this->_myAccounts.at(i)->getIban()) << std::endl;
         std::cout << "\tCreation: " << to_String(this->_myAccounts.at(i)->getCreationDate()) << std::endl;
         std::cout << "\tName: " << this->getName() << "   Firstname: " << this->getFirstname() << "   ID: " << this->getId() << std::endl;
@@ -82,6 +82,17 @@ unsigned int Client::getId() const {
 
 [[maybe_unused]] void Client::setName(const std::string &name) {
     _name = name;
+}
+
+void Client::deleteAccount(const std::string& iban) {
+
+    for (int i = 0; i < _myAccounts.size(); ++i)
+    {
+        if(to_String(_myAccounts.at(i)->getIban()) == iban) {
+            _myAccounts.erase(_myAccounts.begin() + i);
+
+        }
+    }
 }
 
 bool isClient(const std::string &name, const std::string &firstname, const Date &birthday, const std::string &email,

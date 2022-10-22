@@ -21,7 +21,7 @@ public:
     [[nodiscard]] const Iban &getIban() const;
     [[nodiscard]] const Date &getCreationDate() const;
     [[nodiscard]] Statut getStatut() const;
-    void setBalance(unsigned int value);
+    void setBalance(int value);
     void setStatutt(const Statut& statut);
 
 private:

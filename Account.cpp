@@ -32,7 +32,7 @@ Statut Account::getStatut() const {
     _statut = statut;
 }
 
-void Account::setBalance(unsigned int value) {
+void Account::setBalance(int value) {
     this->_balance = _balance + value;
 }
 

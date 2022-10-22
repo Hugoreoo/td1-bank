@@ -37,13 +37,13 @@ std::string to_String(const Time &time) {
 
 Time getCurrentTime() {
 
-    time_t ttime = time(0);
+    time_t ttime = time(nullptr);
     tm *local_time = localtime(&ttime);
 
     int hour = local_time->tm_hour;
     int min = local_time->tm_min;
     int sec = local_time->tm_sec;
 
-    return Time(hour, min, sec);
+    return {static_cast<unsigned int>(hour), static_cast<unsigned int>(min), static_cast<unsigned int>(sec)};
 
 }

@@ -25,12 +25,12 @@ void Bank::createAccount(int balance, Client* client){
     client->setAccount(_myAccounts.at(_myAccounts.size() - 1));
 }
 
-void Bank::lockedAccount(const std::string& iban) 
+[[maybe_unused]] void Bank::lockedAccount(const std::string& iban)
 {
     getAccountByIban(iban)->setStatutt(LOCKED);
 }
 
-void Bank::unlockedAccount(const std::string& iban) 
+[[maybe_unused]] void Bank::unlockedAccount(const std::string& iban)
 {
     getAccountByIban(iban)->setStatutt(UNLOCKED);
 }
@@ -66,7 +66,7 @@ void Bank::accountPayment(const std::string& srcIban, const std::string& destIba
     this->getAccountByIban(srcIban)->setBalance(-value);
     this->getAccountByIban(destIban)->setBalance(value);
 
-    addTransaction(PAYMENT, this->getAccountByIban(srcIban), this->getAccountByIban(destIban), getCurrentDate(), getCurrentTime(), value, message);
+    addTransaction(PAYMENT, this->getAccountByIban(srcIban), this->getAccountByIban(destIban), getCurrentDate(), getCurrentTime(), value, std::move(message));
 
 }
 
@@ -122,14 +122,14 @@ Account * Bank::getAccountByIban(const std::string& iban) {
 }
 
 
-void Bank::printMyHistorical() {
+void Bank::printMyHistory() {
 
-    std::cout << std::endl << "-----------------------------------------------------------------------------| Historical |-----------------------------------------------------------------------------" << std::endl << std::endl;
+    std::cout << std::endl << "-----------------------------------------------------------------------------| History |-----------------------------------------------------------------------------" << std::endl << std::endl;
 
-    for (long unsigned int i = 0; i < this->_myHistorical.size(); ++i)
+    for (long unsigned int i = 0; i < this->_myHistory.size(); ++i)
     {
         std::cout << "--------------------------------------------------------------------------------------------------------------------------------------------------------------------" << std::endl;
-        std::cout << to_String(_myHistorical.at(i)) << std::endl;
+        std::cout << to_String(_myHistory.at(i)) << std::endl;
         std::cout << "--------------------------------------------------------------------------------------------------------------------------------------------------------------------" << std::endl;
     }
 
@@ -139,5 +139,43 @@ void Bank::printMyHistorical() {
 
 void Bank::addTransaction(TransactionType transactionType, Account *srcAccount, Account *destAccount, Date date, Time time, unsigned int value, std::string message, bool statut) 
 {
-    this->_myHistorical.push_back(new Transaction(transactionType, destAccount, date, time, value, srcAccount, message, statut));
+    this->_myHistory.push_back(new Transaction(transactionType, destAccount, date, time, value, srcAccount, std::move(message), statut));
+}
+
+[[maybe_unused]] void Bank::deleteClient(unsigned int id) {
+
+    for (int i = 0; i < _myClients.size(); ++i)
+    {
+        if(_myClients.at(i)->getId() == id)
+        {
+            for (auto j : _myClients.at(i)->getMyAccounts())
+            {
+                deleteAccount(to_String(j->getIban()));
+            }
+
+            _myClients.erase(_myClients.begin() + i);
+        }
+    }
+
+}
+
+void Bank::deleteAccount(const std::string& iban) {
+
+    for (auto & _myClient : _myClients)
+    {
+        for (int j = 0; j < _myClient->getMyAccounts().size(); ++j)
+        {
+            if(to_String(_myClient->getMyAccounts().at(j)->getIban()) == iban)
+                _myClient->deleteAccount(iban);
+
+        }
+    }
+
+    for (int i = 0; i < _myAccounts.size(); ++i)
+    {
+        if(to_String(_myAccounts.at(i)->getIban()) == iban) {
+            _myAccounts.erase(_myAccounts.begin() + i);
+        }
+    }
+
 }

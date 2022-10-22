@@ -29,6 +29,7 @@ public:
     [[maybe_unused]] void setName(const std::string &name);
 
     void setAccount(Account* account);
+    void deleteAccount(const std::string& iban);
     void printMyAccounts();
 
 private:

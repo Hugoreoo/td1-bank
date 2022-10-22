@@ -17,10 +17,10 @@ class Transaction {
 public:
     Transaction(TransactionType transactionType, Account *destAccount, Date date, Time time, unsigned int value, Account *srcAccount = nullptr, std::string message = "none", bool statut = true);
 
-    [[nodiscard]] TransactionType getTransactionType() const;
+    [[maybe_unused]] [[nodiscard]] TransactionType getTransactionType() const;
     [[nodiscard]] Account getSrcAccount() const;
     [[nodiscard]] Account getDestAccount() const;
-    Date getDate() const;
+    [[nodiscard]] Date getDate() const;
     [[nodiscard]] Time getTime() const;
     [[nodiscard]] unsigned int getValue() const;
     [[nodiscard]] std::string getMessage() const;
@@ -41,4 +41,4 @@ private:
 
 std::string to_String(const Transaction *transaction);
 
-#endif //TD1_address_H
+#endif //TD1_TRANSACTION_H

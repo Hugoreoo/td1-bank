@@ -5,12 +5,13 @@
 #include "Transaction.h"
 #include <iostream>
 #include <cassert>
+#include <utility>
 
 Transaction::Transaction(TransactionType transactionType, Account *destAccount, Date date, Time time, unsigned int value, Account *srcAccount, std::string message, bool statut) :
-    _transactionType(transactionType), _destAccount(destAccount), _date(date), _time(time), _value(value), _srcAccount(srcAccount), _message(message), _statut(statut) {
+    _transactionType(transactionType), _destAccount(destAccount), _date(date), _time(time), _value(value), _srcAccount(srcAccount), _message(std::move(message)), _statut(statut) {
 }
 
-TransactionType Transaction::getTransactionType() const {
+[[maybe_unused]] TransactionType Transaction::getTransactionType() const {
     return _transactionType;
 }
 
@@ -44,16 +45,16 @@ bool Transaction::getStatut() const {
 
 std::string to_String(const Transaction *transaction) {
     std::string transactionType, statut;
-    
-    if(transaction->getStatut() == PAYMENT)
+
+    if(transaction->getTransactionType() == PAYMENT)
         transactionType = "PAYMENT";
-    else if (transaction->getStatut() == DEPOSIT)
+    else if (transaction->getTransactionType() == DEPOSIT)
         transactionType = "DEPOSIT";
-    else if (transaction->getStatut() == WITHDRAWAL)
+    else if (transaction->getTransactionType() == WITHDRAWAL)
         transactionType = "WITHDRAWAL";
     else assert(false && "to_String() transaction error.");
 
-    if(transaction->getStatut() == false)
+    if(!transaction->getStatut())
         statut = "Echec";
     else statut = "Succes";
 

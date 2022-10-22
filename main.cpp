@@ -9,7 +9,7 @@ int main() {
     myBank.createClient("test", "test", 07, 23, 2001, "dhtzefzeeef@oui", "04897533389", 5, "Rue Courtepee", "DIJON", 21000);
 
     myBank.createAccount(2000, myBank.getClientById(36753562));
-    myBank.createAccount(3000, myBank.getClientById(6261879));
+    myBank.createAccount(3000, myBank.getClientById(91270936));
 
     //myBank.lockedAccount("FR76QQQVJJ5IIU531GVYX99BWDEKBUTAJ8");
 
@@ -17,8 +17,10 @@ int main() {
     myBank.accountDeposit("FR76QQQVJJ5IIU531GVYX99BWDEKBUTAJ8", 2000);
     myBank.accountWithdrawal("FR76QQQVJJ5IIU531GVYX99BWDEKBUTAJ8", 100);
 
+    //myBank.deleteClient(17409488);
+
     myBank.printMyClients();
-    myBank.printMyHistorical();
+    myBank.printMyHistory();
 
     return 0;
 }

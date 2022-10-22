@@ -39,7 +39,7 @@ std::string to_String(const Date &date) {
 
 Date getCurrentDate() {
 
-    time_t ttime = time(0);
+    time_t ttime = time(nullptr);
     tm *local_time = localtime(&ttime);
 
     int year = 1900 + local_time->tm_year;
