@@ -34,7 +34,7 @@ namespace management {
         void accountDeposit(const std::string& srcIban, int value);
         void accountWithdrawal(const std::string& srcIban, int value);
 
-        void addTransaction(TransactionType transactionType, Account *srcAccount, Account *destAccount, Date date, Time time, unsigned int value, std::string message = "none", bool statut = true);
+        void addTransaction(transaction::TransactionType transactionType, Account *srcAccount, Account *destAccount, nmsdate::Date date, nmstime::Time time, unsigned int value, std::string message = "none", bool statut = true);
 
         consumer::Client* getClientById(const unsigned int& id);
         Account* getAccountByIban(const std::string& iban);
@@ -45,7 +45,7 @@ namespace management {
     private:
         std::vector<consumer::Client *> _myClients;
         std::vector<Account *> _myAccounts;
-        std::vector<Transaction *> _myHistory;
+        std::vector<transaction::Transaction *> _myHistory;
 
     };
 

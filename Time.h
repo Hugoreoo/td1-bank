@@ -7,25 +7,29 @@
 
 #include <iostream>
 
-class Time {
+namespace nmstime {
 
-public:
+    class Time {
 
-    Time(unsigned int hour, unsigned int minute, unsigned int second = 0);
+    public:
 
-    [[nodiscard]] unsigned int getHour() const;
-    [[nodiscard]] unsigned int getMinute() const;
-    [[nodiscard]] unsigned int getSecond() const;
+        Time(unsigned int hour, unsigned int minute, unsigned int second = 0);
 
-private:
-    unsigned int _hour;
-    unsigned int _minute;
-    unsigned int _second;
+        [[nodiscard]] unsigned int getHour() const;
+        [[nodiscard]] unsigned int getMinute() const;
+        [[nodiscard]] unsigned int getSecond() const;
 
-};
+    private:
+        unsigned int _hour;
+        unsigned int _minute;
+        unsigned int _second;
 
-bool isTime(const unsigned int& hour, const unsigned int& min, const unsigned int& sec);
-std::string to_String(const Time &time);
-Time getCurrentTime();
+    };
+
+    bool isTime(const unsigned int& hour, const unsigned int& min, const unsigned int& sec);
+    std::string to_String(const Time &time);
+    Time getCurrentTime();
+
+}
 
 #endif //TD1_TIME_H

@@ -10,35 +10,39 @@
 #include "Date.h"
 #include "Time.h"
 
-enum TransactionType {PAYMENT, DEPOSIT, WITHDRAWAL};
+namespace transaction {
 
-class Transaction {
+    enum TransactionType {PAYMENT, DEPOSIT, WITHDRAWAL};
 
-public:
-    Transaction(TransactionType transactionType, Account *destAccount, Date date, Time time, unsigned int value, Account *srcAccount = nullptr, std::string message = "none", bool statut = true);
+    class Transaction {
 
-    [[maybe_unused]] [[nodiscard]] TransactionType getTransactionType() const;
-    [[nodiscard]] Account getSrcAccount() const;
-    [[nodiscard]] Account getDestAccount() const;
-    [[nodiscard]] Date getDate() const;
-    [[nodiscard]] Time getTime() const;
-    [[nodiscard]] unsigned int getValue() const;
-    [[nodiscard]] std::string getMessage() const;
-    [[nodiscard]] bool getStatut() const;
+    public:
+        Transaction(TransactionType transactionType, Account *destAccount, nmsdate::Date date, nmstime::Time time, unsigned int value, Account *srcAccount = nullptr, std::string message = "none", bool statut = true);
+
+        [[maybe_unused]] [[nodiscard]] TransactionType getTransactionType() const;
+        [[nodiscard]] Account getSrcAccount() const;
+        [[nodiscard]] Account getDestAccount() const;
+        [[nodiscard]] nmsdate::Date getDate() const;
+        [[nodiscard]] nmstime::Time getTime() const;
+        [[nodiscard]] unsigned int getValue() const;
+        [[nodiscard]] std::string getMessage() const;
+        [[nodiscard]] bool getStatut() const;
 
 
-private:
-    TransactionType _transactionType;
-    Account *_srcAccount;
-    Account *_destAccount;
-    Date _date;
-    Time _time;
-    unsigned int _value;
-    std::string _message;
-    bool _statut;
+    private:
+        TransactionType _transactionType;
+        Account *_srcAccount;
+        Account *_destAccount;
+        nmsdate::Date _date;
+        nmstime::Time _time;
+        unsigned int _value;
+        std::string _message;
+        bool _statut;
 
-};
+    };
 
-std::string to_String(const Transaction *transaction);
+    std::string to_String(const Transaction *transaction);
+
+}
 
 #endif //TD1_TRANSACTION_H

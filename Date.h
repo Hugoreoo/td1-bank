@@ -7,25 +7,28 @@
 
 #include <iostream>
 
-class Date {
+namespace nmsdate {
 
-public:
-    explicit Date(int month = 01, int day = 01, int year = 2000);
+    class Date {
 
-    [[nodiscard]] int getYear() const;
-    [[nodiscard]] int getMonth() const;
-    [[nodiscard]] int getDay() const;
+    public:
+        explicit Date(int month = 01, int day = 01, int year = 2000);
 
-private:
-    int _year;
-    int _month;
-    int _day;
+        [[nodiscard]] int getYear() const;
+        [[nodiscard]] int getMonth() const;
+        [[nodiscard]] int getDay() const;
 
-};
+    private:
+        int _year;
+        int _month;
+        int _day;
 
-bool isDate(const int& month, const int& day, const int& year);
-std::string to_String(const Date &date);
-Date getCurrentDate();
+    };
+
+    bool isDate(const int& month, const int& day, const int& year);
+    std::string to_String(const Date &date);
+    Date getCurrentDate();
+}
 
 
 #endif //TD1_DATE_H

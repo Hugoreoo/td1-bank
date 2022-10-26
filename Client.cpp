@@ -8,7 +8,7 @@
 
 namespace consumer {
 
-    Client::Client(const std::string &name, const std::string &firstname, const Date &birthday,
+    Client::Client(const std::string &name, const std::string &firstname, const nmsdate::Date &birthday,
                    const std::string &email,
                    const std::string &phoneNumber, const Address &address) :
             _name(name),
@@ -17,7 +17,7 @@ namespace consumer {
             _email(email),
             _phoneNumber(phoneNumber),
             _id(randomId()), _address(address),
-            _creationDate(getCurrentDate()){
+            _creationDate(nmsdate::getCurrentDate()){
 
         bool statut = isClient(name, firstname, birthday, email, phoneNumber, _id, address);
         assert(statut && "Client is not valid");
@@ -55,7 +55,7 @@ namespace consumer {
         return _firstname;
     }
 
-    [[maybe_unused]] const Date &Client::getBirthday() const {
+    [[maybe_unused]] const nmsdate::Date &Client::getBirthday() const {
         return _birthday;
     }
 
@@ -74,7 +74,7 @@ namespace consumer {
         return _address;
     }
 
-    [[maybe_unused]] const Date &Client::getCreationDate() const {
+    [[maybe_unused]] const nmsdate::Date &Client::getCreationDate() const {
         return _creationDate;
     }
 
@@ -97,7 +97,7 @@ namespace consumer {
         }
     }
 
-    bool isClient(const std::string &name, const std::string &firstname, const Date &birthday, const std::string &email,
+    bool isClient(const std::string &name, const std::string &firstname, const nmsdate::Date &birthday, const std::string &email,
                   const std::string &phoneNumer, const unsigned int &id, const Address &address) {
 
         if (email.find('@') == std::string::npos)

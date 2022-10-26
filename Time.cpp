@@ -6,44 +6,46 @@
 #include <ctime>
 #include <cassert>
 
+namespace nmstime {
 
-Time::Time(unsigned int hour, unsigned int minute, unsigned int second) : _hour(hour), _minute(minute), _second(second) {
-    bool statut = isTime(hour, minute, second);
-    assert(statut && "Time is not valid");
-}
+    Time::Time(unsigned int hour, unsigned int minute, unsigned int second) : _hour(hour), _minute(minute), _second(second) {
+        bool statut = isTime(hour, minute, second);
+        assert(statut && "Time is not valid");
+    }
 
-unsigned int Time::getHour() const {
-    return _hour;
-}
+    unsigned int Time::getHour() const {
+        return _hour;
+    }
 
-unsigned int Time::getMinute() const {
-    return _minute;
-}
+    unsigned int Time::getMinute() const {
+        return _minute;
+    }
 
-unsigned int Time::getSecond() const {
-    return _second;
-}
+    unsigned int Time::getSecond() const {
+        return _second;
+    }
 
-bool isTime(const unsigned int& hour, const unsigned int& min, const unsigned int& sec) {
-    if((hour > 23) || (min > 59) || (sec > 59))
-        return false;
+    bool isTime(const unsigned int& hour, const unsigned int& min, const unsigned int& sec) {
+        if((hour > 23) || (min > 59) || (sec > 59))
+            return false;
 
-    return true;
-}
+        return true;
+    }
 
-std::string to_String(const Time &time) {
-    return std::to_string(time.getHour()) + ":" + std::to_string(time.getMinute()) + ":" + std::to_string(time.getSecond());
-}
+    std::string to_String(const Time &time) {
+        return std::to_string(time.getHour()) + ":" + std::to_string(time.getMinute()) + ":" + std::to_string(time.getSecond());
+    }
 
-Time getCurrentTime() {
+    Time getCurrentTime() {
 
-    time_t ttime = time(nullptr);
-    tm *local_time = localtime(&ttime);
+        time_t ttime = time(nullptr);
+        tm *local_time = localtime(&ttime);
 
-    int hour = local_time->tm_hour;
-    int min = local_time->tm_min;
-    int sec = local_time->tm_sec;
+        int hour = local_time->tm_hour;
+        int min = local_time->tm_min;
+        int sec = local_time->tm_sec;
 
-    return {static_cast<unsigned int>(hour), static_cast<unsigned int>(min), static_cast<unsigned int>(sec)};
+        return {static_cast<unsigned int>(hour), static_cast<unsigned int>(min), static_cast<unsigned int>(sec)};
 
+    }
 }

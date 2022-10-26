@@ -17,7 +17,7 @@ namespace management {
                             const std::string& email, const std::string& phoneNumber, int addressNumber, std::string addressStreet,
                             std::string addressCity, int addressZipCode) {
 
-        this->_myClients.push_back(new consumer::Client(name, firstname, Date(birthMonth, birthDay, birthYear), email, phoneNumber, Address(addressNumber, std::move(addressStreet), std::move(addressCity), addressZipCode)));
+        this->_myClients.push_back(new consumer::Client(name, firstname, nmsdate::Date(birthMonth, birthDay, birthYear), email, phoneNumber, Address(addressNumber, std::move(addressStreet), std::move(addressCity), addressZipCode)));
 
     }
 
@@ -68,7 +68,7 @@ namespace management {
         this->getAccountByIban(srcIban)->setBalance(-value);
         this->getAccountByIban(destIban)->setBalance(value);
 
-        addTransaction(PAYMENT, this->getAccountByIban(srcIban), this->getAccountByIban(destIban), getCurrentDate(), getCurrentTime(), value, std::move(message));
+        addTransaction(transaction::PAYMENT, this->getAccountByIban(srcIban), this->getAccountByIban(destIban), nmsdate::getCurrentDate(), nmstime::getCurrentTime(), value, std::move(message));
 
     }
 
@@ -82,7 +82,7 @@ namespace management {
 
         this->getAccountByIban(srcIban)->setBalance(value);
 
-        addTransaction(DEPOSIT, this->getAccountByIban(srcIban), this->getAccountByIban(srcIban), getCurrentDate(), getCurrentTime(), value);
+        addTransaction(transaction::DEPOSIT, this->getAccountByIban(srcIban), this->getAccountByIban(srcIban), nmsdate::getCurrentDate(), nmstime::getCurrentTime(), value);
     }
 
     void Bank::accountWithdrawal(const std::string& srcIban, int value) 
@@ -95,7 +95,7 @@ namespace management {
 
         this->getAccountByIban(srcIban)->setBalance(-value);
 
-        addTransaction(WITHDRAWAL, this->getAccountByIban(srcIban), this->getAccountByIban(srcIban), getCurrentDate(), getCurrentTime(), value);
+        addTransaction(transaction::WITHDRAWAL, this->getAccountByIban(srcIban), this->getAccountByIban(srcIban), nmsdate::getCurrentDate(), nmstime::getCurrentTime(), value);
     }
 
     consumer::Client * Bank::getClientById(const unsigned int& id) {
@@ -139,9 +139,9 @@ namespace management {
 
     }
 
-    void Bank::addTransaction(TransactionType transactionType, Account *srcAccount, Account *destAccount, Date date, Time time, unsigned int value, std::string message, bool statut) 
+    void Bank::addTransaction(transaction::TransactionType transactionType, Account *srcAccount, Account *destAccount, nmsdate::Date date, nmstime::Time time, unsigned int value, std::string message, bool statut) 
     {
-        this->_myHistory.push_back(new Transaction(transactionType, destAccount, date, time, value, srcAccount, std::move(message), statut));
+        this->_myHistory.push_back(new transaction::Transaction(transactionType, destAccount, date, time, value, srcAccount, std::move(message), statut));
     }
 
     [[maybe_unused]] void Bank::deleteClient(unsigned int id) {
