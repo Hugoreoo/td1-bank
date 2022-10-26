@@ -7,24 +7,27 @@
 
 #include <string>
 
-class Iban {
+namespace iban {
 
-public:
-    Iban();
+    class Iban {
 
-    [[nodiscard]] const std::string &getCp() const;
-    [[nodiscard]] const std::string &getCc() const;
-    [[nodiscard]] const std::string &getBban() const;
+    public:
+        Iban();
 
-private:
-    std::string _cp;
-    std::string _cc;
-    std::string _bban;
+        [[nodiscard]] const std::string &getCp() const;
+        [[nodiscard]] const std::string &getCc() const;
+        [[nodiscard]] const std::string &getBban() const;
 
-};
+    private:
+        std::string _cp;
+        std::string _cc;
+        std::string _bban;
 
-bool isIban(const std::string& ibanToTest);
-std::string to_String(const Iban& iban);
-std::string randomBban(const int &len);
+    };
+
+    bool isIban(const std::string& ibanToTest);
+    std::string to_String(const Iban& iban);
+    std::string randomBban(const int &len);
+}
 
 #endif //TD1_IBAN_H

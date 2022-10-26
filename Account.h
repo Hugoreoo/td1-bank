@@ -19,7 +19,7 @@ class Client;
         Account(int balance, consumer::Client& myClient);
 
         [[nodiscard]] int getBalance() const;
-        [[nodiscard]] const Iban &getIban() const;
+        [[nodiscard]] const iban::Iban &getIban() const;
         [[nodiscard]] const nmsdate::Date &getCreationDate() const;
         [[nodiscard]] Statut getStatut() const;
         void setBalance(int value);
@@ -28,12 +28,12 @@ class Client;
     private:
         consumer::Client _myClient;
         int _balance;
-        const Iban _iban;
+        const iban::Iban _iban;
         const nmsdate::Date _creationDate;
         Statut _statut;
     };
 
-    bool isAccount(const int &balance, const Iban &iban, const nmsdate::Date &creationDate);
+    bool isAccount(const int &balance, const iban::Iban &iban, const nmsdate::Date &creationDate);
     bool isAccountLocked(const Account &account);
 
 

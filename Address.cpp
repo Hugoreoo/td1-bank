@@ -3,28 +3,30 @@
 //
 
 #include "Address.h"
-
 #include <utility>
 
-Address::Address(unsigned int number, std::string street, std::string city, unsigned int  zipCode)
-        : _number(number), _street(std::move(street)), _city(std::move(city)), _zipCode(zipCode) {}
+namespace address {
 
-unsigned int Address::getNumber() const {
-    return _number;
-}
+    Address::Address(unsigned int number, std::string street, std::string city, unsigned int  zipCode)
+            : _number(number), _street(std::move(street)), _city(std::move(city)), _zipCode(zipCode) {}
 
-const std::string &Address::getStreet() const {
-    return _street;
-}
+    unsigned int Address::getNumber() const {
+        return _number;
+    }
 
-const std::string &Address::getCity() const {
-    return _city;
-}
+    const std::string &Address::getStreet() const {
+        return _street;
+    }
 
-const unsigned int  &Address::getZipCode() const {
-    return _zipCode;
-}
+    const std::string &Address::getCity() const {
+        return _city;
+    }
 
-std::string to_String(const Address &adress) {
-    return std::to_string(adress.getNumber()) + " " + adress.getStreet() + ", " + adress.getCity() + " " + std::to_string(adress.getZipCode());
+    const unsigned int  &Address::getZipCode() const {
+        return _zipCode;
+    }
+
+    std::string to_String(const Address &adress) {
+        return std::to_string(adress.getNumber()) + " " + adress.getStreet() + ", " + adress.getCity() + " " + std::to_string(adress.getZipCode());
+    }
 }

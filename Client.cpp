@@ -10,7 +10,7 @@ namespace consumer {
 
     Client::Client(const std::string &name, const std::string &firstname, const nmsdate::Date &birthday,
                    const std::string &email,
-                   const std::string &phoneNumber, const Address &address) :
+                   const std::string &phoneNumber, const address::Address &address) :
             _name(name),
             _firstname(firstname),
             _birthday(birthday),
@@ -70,7 +70,7 @@ namespace consumer {
         return _id;
     }
 
-    [[maybe_unused]] const Address &Client::getAddress() const {
+    [[maybe_unused]] const address::Address &Client::getAddress() const {
         return _address;
     }
 
@@ -98,7 +98,7 @@ namespace consumer {
     }
 
     bool isClient(const std::string &name, const std::string &firstname, const nmsdate::Date &birthday, const std::string &email,
-                  const std::string &phoneNumer, const unsigned int &id, const Address &address) {
+                  const std::string &phoneNumer, const unsigned int &id, const address::Address &address) {
 
         if (email.find('@') == std::string::npos)
             return false;

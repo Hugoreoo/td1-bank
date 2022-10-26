@@ -6,7 +6,7 @@
 #include <cassert>
 
 
-    Account::Account(int balance, consumer::Client& myClient) : _balance(balance), _myClient(myClient), _iban(Iban()), _creationDate(nmsdate::getCurrentDate()),
+    Account::Account(int balance, consumer::Client& myClient) : _balance(balance), _myClient(myClient), _iban(iban::Iban()), _creationDate(nmsdate::getCurrentDate()),
                                                                          _statut(UNLOCKED) {
 
         bool statut = isAccount(balance, _iban, _creationDate);
@@ -17,7 +17,7 @@
         return _balance;
     }
 
-    const Iban &Account::getIban() const {
+    const iban::Iban &Account::getIban() const {
         return _iban;
     }
 
@@ -38,7 +38,7 @@
         this->_statut = statut;
     }
 
-    bool isAccount(const int &balance, const Iban &iban, const nmsdate::Date &creationDate) {
+    bool isAccount(const int &balance, const iban::Iban &iban, const nmsdate::Date &creationDate) {
 
         if (balance < 0)
             return false;

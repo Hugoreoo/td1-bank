@@ -17,7 +17,7 @@ namespace management {
                             const std::string& email, const std::string& phoneNumber, int addressNumber, std::string addressStreet,
                             std::string addressCity, int addressZipCode) {
 
-        this->_myClients.push_back(new consumer::Client(name, firstname, nmsdate::Date(birthMonth, birthDay, birthYear), email, phoneNumber, Address(addressNumber, std::move(addressStreet), std::move(addressCity), addressZipCode)));
+        this->_myClients.push_back(new consumer::Client(name, firstname, nmsdate::Date(birthMonth, birthDay, birthYear), email, phoneNumber, address::Address(addressNumber, std::move(addressStreet), std::move(addressCity), addressZipCode)));
 
     }
 

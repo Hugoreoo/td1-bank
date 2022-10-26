@@ -17,7 +17,7 @@ namespace consumer {
     class Client {
 
     public:
-        Client(const std::string &name, const std::string &firstname, const nmsdate::Date &birthday, const std::string &email, const std::string &phoneNumber, const Address &address);
+        Client(const std::string &name, const std::string &firstname, const nmsdate::Date &birthday, const std::string &email, const std::string &phoneNumber, const address::Address &address);
 
         [[nodiscard]] const std::string &getName() const;
         [[nodiscard]] const std::string &getFirstname() const;
@@ -25,7 +25,7 @@ namespace consumer {
         [[maybe_unused]] [[nodiscard]] const nmsdate::Date &getBirthday() const;
         [[maybe_unused]] [[nodiscard]] const std::string &getEmail() const;
         [[maybe_unused]] [[nodiscard]] const std::string &getPhoneNumber() const;
-        [[maybe_unused]] [[nodiscard]] const Address &getAddress() const;
+        [[maybe_unused]] [[nodiscard]] const address::Address &getAddress() const;
         [[maybe_unused]] [[nodiscard]] const nmsdate::Date &getCreationDate() const;
         [[maybe_unused]] [[nodiscard]] const std::vector<Account *> &getMyAccounts() const;
         [[maybe_unused]] void setName(const std::string &name);
@@ -42,13 +42,13 @@ namespace consumer {
         std::string _email;
         std::string _phoneNumber;
         const unsigned int _id;
-        Address _address;
+        address::Address _address;
         const nmsdate::Date _creationDate;
 
     };
 
     unsigned int randomId(const int &len = 8);
-    bool isClient(const std::string &name, const std::string &firstname, const nmsdate::Date &birthday, const std::string &email, const std::string &phoneNumer, const unsigned int &id, const Address &address);
+    bool isClient(const std::string &name, const std::string &firstname, const nmsdate::Date &birthday, const std::string &email, const std::string &phoneNumer, const unsigned int &id, const address::Address &address);
 
 }
 
