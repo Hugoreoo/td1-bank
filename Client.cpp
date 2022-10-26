@@ -88,7 +88,7 @@ namespace consumer {
 
     void Client::deleteAccount(const std::string& iban) {
 
-        for (int i = 0; i < _myAccounts.size(); ++i)
+        for (long unsigned int i = 0; i < _myAccounts.size(); ++i)
         {
             if(to_String(_myAccounts.at(i)->getIban()) == iban) {
                 _myAccounts.erase(_myAccounts.begin() + i);

@@ -146,7 +146,7 @@ namespace management {
 
     [[maybe_unused]] void Bank::deleteClient(unsigned int id) {
 
-        for (int i = 0; i < _myClients.size(); ++i)
+        for (long unsigned int i = 0; i < _myClients.size(); ++i)
         {
             if(_myClients.at(i)->getId() == id)
             {
@@ -165,7 +165,7 @@ namespace management {
 
         for (auto & _myClient : _myClients)
         {
-            for (int j = 0; j < _myClient->getMyAccounts().size(); ++j)
+            for (long unsigned int j = 0; j < _myClient->getMyAccounts().size(); ++j)
             {
                 if(to_String(_myClient->getMyAccounts().at(j)->getIban()) == iban)
                     _myClient->deleteAccount(iban);
@@ -173,7 +173,7 @@ namespace management {
             }
         }
 
-        for (int i = 0; i < _myAccounts.size(); ++i)
+        for (long unsigned int i = 0; i < _myAccounts.size(); ++i)
         {
             if(to_String(_myAccounts.at(i)->getIban()) == iban) {
                 _myAccounts.erase(_myAccounts.begin() + i);
