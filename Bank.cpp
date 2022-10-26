@@ -11,171 +11,174 @@
 #include "Date.h"
 #include "Time.h"
 
-void Bank::createClient(const std::string& name, const std::string& firstname, int birthMonth, int birthDay, int birthYear,
-                        const std::string& email, const std::string& phoneNumber, int addressNumber, std::string addressStreet,
-                        std::string addressCity, int addressZipCode) {
+namespace management {
 
-    this->_myClients.push_back(new Client(name, firstname, Date(birthMonth, birthDay, birthYear), email, phoneNumber, Address(addressNumber, std::move(addressStreet), std::move(addressCity), addressZipCode)));
+    void Bank::createClient(const std::string& name, const std::string& firstname, int birthMonth, int birthDay, int birthYear,
+                            const std::string& email, const std::string& phoneNumber, int addressNumber, std::string addressStreet,
+                            std::string addressCity, int addressZipCode) {
 
-}
+        this->_myClients.push_back(new consumer::Client(name, firstname, Date(birthMonth, birthDay, birthYear), email, phoneNumber, Address(addressNumber, std::move(addressStreet), std::move(addressCity), addressZipCode)));
 
-void Bank::createAccount(int balance, Client* client){
-
-    _myAccounts.push_back(new Account(balance, *client));
-    client->setAccount(_myAccounts.at(_myAccounts.size() - 1));
-}
-
-[[maybe_unused]] void Bank::lockedAccount(const std::string& iban)
-{
-    getAccountByIban(iban)->setStatutt(LOCKED);
-}
-
-[[maybe_unused]] void Bank::unlockedAccount(const std::string& iban)
-{
-    getAccountByIban(iban)->setStatutt(UNLOCKED);
-}
-
-void Bank::printMyClients() {
-
-    for (long unsigned int i = 0; i < this->_myClients.size(); ++i)
-    {
-        std::cout << "-------------------------------------------------------------------------------| Client |-------------------------------------------------------------------------------" << std::endl << std::endl;
-        std::cout << "=====> ID: " << _myClients.at(i)->getId();
-        std::cout << "  Name: " << _myClients.at(i)->getName();
-        std::cout << "  Firstname: " << _myClients.at(i)->getFirstname();
-        _myClients.at(i)->printMyAccounts();
-        std::cout << std::endl << /*"--------------------------------------------------------------------------------| END |--------------------------------------------------------------------------------" <<*/ std::endl;
     }
 
-}
+    void Bank::createAccount(int balance, consumer::Client* client){
 
-
-void Bank::accountPayment(const std::string& srcIban, const std::string& destIban, int value, std::string message)
-{
-    if (isAccountLocked(*this->getAccountByIban(srcIban)))
-        assert(false && "Source account is locked.");
-    if (isAccountLocked(*this->getAccountByIban(destIban)))
-        assert(false && "Destination account is locked.");
-
-    if(value < 0)
-        value *= -1;
-
-    if(this->getAccountByIban(srcIban)->getBalance() - value < 0)
-        assert(false && "Balance account insufficient.");
-
-    this->getAccountByIban(srcIban)->setBalance(-value);
-    this->getAccountByIban(destIban)->setBalance(value);
-
-    addTransaction(PAYMENT, this->getAccountByIban(srcIban), this->getAccountByIban(destIban), getCurrentDate(), getCurrentTime(), value, std::move(message));
-
-}
-
-void Bank::accountDeposit(const std::string& srcIban, int value) 
-{
-    if (isAccountLocked(*this->getAccountByIban(srcIban)))
-        assert(false && "Source account is locked.");
-
-    if(value < 0)
-        value *= -1;
-
-    this->getAccountByIban(srcIban)->setBalance(value);
-
-    addTransaction(DEPOSIT, this->getAccountByIban(srcIban), this->getAccountByIban(srcIban), getCurrentDate(), getCurrentTime(), value);
-}
-
-void Bank::accountWithdrawal(const std::string& srcIban, int value) 
-{
-    if (isAccountLocked(*this->getAccountByIban(srcIban)))
-        assert(false && "Source account is locked.");
-
-    if(value < 0)
-        value *= -1;
-
-    this->getAccountByIban(srcIban)->setBalance(-value);
-
-    addTransaction(WITHDRAWAL, this->getAccountByIban(srcIban), this->getAccountByIban(srcIban), getCurrentDate(), getCurrentTime(), value);
-}
-
-Client * Bank::getClientById(const unsigned int& id) {
-
-    for (long unsigned int i = 0; i < this->_myClients.size(); ++i)
-    {
-        if(_myClients.at(i)->getId() == id) {
-            return _myClients.at(i);
-        }
-    }
-    assert(false && "Client does not exist");
-
-    return nullptr;
-}
-
-Account * Bank::getAccountByIban(const std::string& iban) {
-
-    for (long unsigned int i = 0; i < this->_myAccounts.size(); ++i)
-    {
-        if(to_String(_myAccounts.at(i)->getIban()) == iban) {
-            return _myAccounts.at(i);
-        }
-    }
-    assert(false && "Account does not exist");
-    return nullptr;
-}
-
-
-void Bank::printMyHistory() {
-
-    std::cout << std::endl << "-----------------------------------------------------------------------------| History |-----------------------------------------------------------------------------" << std::endl << std::endl;
-
-    for (long unsigned int i = 0; i < this->_myHistory.size(); ++i)
-    {
-        std::cout << "--------------------------------------------------------------------------------------------------------------------------------------------------------------------" << std::endl;
-        std::cout << to_String(_myHistory.at(i)) << std::endl;
-        std::cout << "--------------------------------------------------------------------------------------------------------------------------------------------------------------------" << std::endl;
+        _myAccounts.push_back(new Account(balance, *client));
+        client->setAccount(_myAccounts.at(_myAccounts.size() - 1));
     }
 
-    std::cout << std::endl << "--------------------------------------------------------------------------------| END |---------------------------------------------------------------------------------" << std::endl << std::endl;
-
-}
-
-void Bank::addTransaction(TransactionType transactionType, Account *srcAccount, Account *destAccount, Date date, Time time, unsigned int value, std::string message, bool statut) 
-{
-    this->_myHistory.push_back(new Transaction(transactionType, destAccount, date, time, value, srcAccount, std::move(message), statut));
-}
-
-[[maybe_unused]] void Bank::deleteClient(unsigned int id) {
-
-    for (int i = 0; i < _myClients.size(); ++i)
+    [[maybe_unused]] void Bank::lockedAccount(const std::string& iban)
     {
-        if(_myClients.at(i)->getId() == id)
+        getAccountByIban(iban)->setStatut(LOCKED);
+    }
+
+    [[maybe_unused]] void Bank::unlockedAccount(const std::string& iban)
+    {
+        getAccountByIban(iban)->setStatut(UNLOCKED);
+    }
+
+    void Bank::printMyClients() {
+
+        for (long unsigned int i = 0; i < this->_myClients.size(); ++i)
         {
-            for (auto j : _myClients.at(i)->getMyAccounts())
-            {
-                deleteAccount(to_String(j->getIban()));
+            std::cout << "-------------------------------------------------------------------------------| Client |-------------------------------------------------------------------------------" << std::endl << std::endl;
+            std::cout << "=====> ID: " << _myClients.at(i)->getId();
+            std::cout << "  Name: " << _myClients.at(i)->getName();
+            std::cout << "  Firstname: " << _myClients.at(i)->getFirstname();
+            _myClients.at(i)->printMyAccounts();
+            std::cout << std::endl << /*"--------------------------------------------------------------------------------| END |--------------------------------------------------------------------------------" <<*/ std::endl;
+        }
+
+    }
+
+
+    void Bank::accountPayment(const std::string& srcIban, const std::string& destIban, int value, std::string message)
+    {
+        if (isAccountLocked(*this->getAccountByIban(srcIban)))
+            assert(false && "Source account is locked.");
+        if (isAccountLocked(*this->getAccountByIban(destIban)))
+            assert(false && "Destination account is locked.");
+
+        if(value < 0)
+            value *= -1;
+
+        if(this->getAccountByIban(srcIban)->getBalance() - value < 0)
+            assert(false && "Balance account insufficient.");
+
+        this->getAccountByIban(srcIban)->setBalance(-value);
+        this->getAccountByIban(destIban)->setBalance(value);
+
+        addTransaction(PAYMENT, this->getAccountByIban(srcIban), this->getAccountByIban(destIban), getCurrentDate(), getCurrentTime(), value, std::move(message));
+
+    }
+
+    void Bank::accountDeposit(const std::string& srcIban, int value) 
+    {
+        if (isAccountLocked(*this->getAccountByIban(srcIban)))
+            assert(false && "Source account is locked.");
+
+        if(value < 0)
+            value *= -1;
+
+        this->getAccountByIban(srcIban)->setBalance(value);
+
+        addTransaction(DEPOSIT, this->getAccountByIban(srcIban), this->getAccountByIban(srcIban), getCurrentDate(), getCurrentTime(), value);
+    }
+
+    void Bank::accountWithdrawal(const std::string& srcIban, int value) 
+    {
+        if (isAccountLocked(*this->getAccountByIban(srcIban)))
+            assert(false && "Source account is locked.");
+
+        if(value < 0)
+            value *= -1;
+
+        this->getAccountByIban(srcIban)->setBalance(-value);
+
+        addTransaction(WITHDRAWAL, this->getAccountByIban(srcIban), this->getAccountByIban(srcIban), getCurrentDate(), getCurrentTime(), value);
+    }
+
+    consumer::Client * Bank::getClientById(const unsigned int& id) {
+
+        for (long unsigned int i = 0; i < this->_myClients.size(); ++i)
+        {
+            if(_myClients.at(i)->getId() == id) {
+                return _myClients.at(i);
             }
-
-            _myClients.erase(_myClients.begin() + i);
         }
+        assert(false && "Client does not exist");
+
+        return nullptr;
     }
 
-}
+    Account * Bank::getAccountByIban(const std::string& iban) {
 
-void Bank::deleteAccount(const std::string& iban) {
-
-    for (auto & _myClient : _myClients)
-    {
-        for (int j = 0; j < _myClient->getMyAccounts().size(); ++j)
+        for (long unsigned int i = 0; i < this->_myAccounts.size(); ++i)
         {
-            if(to_String(_myClient->getMyAccounts().at(j)->getIban()) == iban)
-                _myClient->deleteAccount(iban);
-
+            if(to_String(_myAccounts.at(i)->getIban()) == iban) {
+                return _myAccounts.at(i);
+            }
         }
+        assert(false && "Account does not exist");
+        return nullptr;
     }
 
-    for (int i = 0; i < _myAccounts.size(); ++i)
+
+    void Bank::printMyHistory() {
+
+        std::cout << std::endl << "-----------------------------------------------------------------------------| History |-----------------------------------------------------------------------------" << std::endl << std::endl;
+
+        for (long unsigned int i = 0; i < this->_myHistory.size(); ++i)
+        {
+            std::cout << "--------------------------------------------------------------------------------------------------------------------------------------------------------------------" << std::endl;
+            std::cout << to_String(_myHistory.at(i)) << std::endl;
+            std::cout << "--------------------------------------------------------------------------------------------------------------------------------------------------------------------" << std::endl;
+        }
+
+        std::cout << std::endl << "--------------------------------------------------------------------------------| END |---------------------------------------------------------------------------------" << std::endl << std::endl;
+
+    }
+
+    void Bank::addTransaction(TransactionType transactionType, Account *srcAccount, Account *destAccount, Date date, Time time, unsigned int value, std::string message, bool statut) 
     {
-        if(to_String(_myAccounts.at(i)->getIban()) == iban) {
-            _myAccounts.erase(_myAccounts.begin() + i);
-        }
+        this->_myHistory.push_back(new Transaction(transactionType, destAccount, date, time, value, srcAccount, std::move(message), statut));
     }
 
+    [[maybe_unused]] void Bank::deleteClient(unsigned int id) {
+
+        for (int i = 0; i < _myClients.size(); ++i)
+        {
+            if(_myClients.at(i)->getId() == id)
+            {
+                for (auto j : _myClients.at(i)->getMyAccounts())
+                {
+                    deleteAccount(to_String(j->getIban()));
+                }
+
+                _myClients.erase(_myClients.begin() + i);
+            }
+        }
+
+    }
+
+    void Bank::deleteAccount(const std::string& iban) {
+
+        for (auto & _myClient : _myClients)
+        {
+            for (int j = 0; j < _myClient->getMyAccounts().size(); ++j)
+            {
+                if(to_String(_myClient->getMyAccounts().at(j)->getIban()) == iban)
+                    _myClient->deleteAccount(iban);
+
+            }
+        }
+
+        for (int i = 0; i < _myAccounts.size(); ++i)
+        {
+            if(to_String(_myAccounts.at(i)->getIban()) == iban) {
+                _myAccounts.erase(_myAccounts.begin() + i);
+            }
+        }
+
+    }
 }

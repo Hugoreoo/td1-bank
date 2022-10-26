@@ -15,38 +15,41 @@ class Account;
 class Client;
 class Transaction;
 
-class Bank {
+namespace management {
 
-public:
+    class Bank {
 
-    void createClient(const std::string& name, const std::string& firstname, int birthMonth, int birthDay, int birthYear, const std::string& email, const std::string& phoneNumber, int addressNumber, std::string addressStreet, std::string addressCity, int addressZipCode);
-    void createAccount(int balance, Client* client);
+    public:
 
-    [[maybe_unused]] void deleteClient(unsigned int id);
-    [[maybe_unused]] void deleteAccount(const std::string& iban);
+        void createClient(const std::string& name, const std::string& firstname, int birthMonth, int birthDay, int birthYear, const std::string& email, const std::string& phoneNumber, int addressNumber, std::string addressStreet, std::string addressCity, int addressZipCode);
+        void createAccount(int balance, consumer::Client* client);
 
-    [[maybe_unused]] void lockedAccount(const std::string& iban);
-    [[maybe_unused]] void unlockedAccount(const std::string& iban);
+        [[maybe_unused]] void deleteClient(unsigned int id);
+        [[maybe_unused]] void deleteAccount(const std::string& iban);
 
-    void accountPayment(const std::string& srcIban, const std::string& destIban, int value, std::string message = "none");
-    void accountDeposit(const std::string& srcIban, int value);
-    void accountWithdrawal(const std::string& srcIban, int value);
+        [[maybe_unused]] void lockedAccount(const std::string& iban);
+        [[maybe_unused]] void unlockedAccount(const std::string& iban);
 
-    void addTransaction(TransactionType transactionType, Account *srcAccount, Account *destAccount, Date date, Time time, unsigned int value, std::string message = "none", bool statut = true);
+        void accountPayment(const std::string& srcIban, const std::string& destIban, int value, std::string message = "none");
+        void accountDeposit(const std::string& srcIban, int value);
+        void accountWithdrawal(const std::string& srcIban, int value);
 
-    Client* getClientById(const unsigned int& id);
-    Account* getAccountByIban(const std::string& iban);
+        void addTransaction(TransactionType transactionType, Account *srcAccount, Account *destAccount, Date date, Time time, unsigned int value, std::string message = "none", bool statut = true);
 
-    void printMyClients();
-    void printMyHistory();
+        consumer::Client* getClientById(const unsigned int& id);
+        Account* getAccountByIban(const std::string& iban);
 
-private:
-    std::vector<Client *> _myClients;
-    std::vector<Account *> _myAccounts;
-    std::vector<Transaction *> _myHistory;
+        void printMyClients();
+        void printMyHistory();
 
-};
+    private:
+        std::vector<consumer::Client *> _myClients;
+        std::vector<Account *> _myAccounts;
+        std::vector<Transaction *> _myHistory;
 
+    };
+
+}
 
 
 #endif //TD1_BANK_H

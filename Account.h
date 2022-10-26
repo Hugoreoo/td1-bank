@@ -12,30 +12,30 @@
 enum Statut {UNLOCKED, LOCKED};
 
 class Client;
-class Account {
 
-public:
-    Account(int balance, Client& myClient);
+    class Account {
 
-    [[nodiscard]] int getBalance() const;
-    [[nodiscard]] const Iban &getIban() const;
-    [[nodiscard]] const Date &getCreationDate() const;
-    [[nodiscard]] Statut getStatut() const;
-    void setBalance(int value);
-    void setStatutt(const Statut& statut);
+    public:
+        Account(int balance, consumer::Client& myClient);
 
-private:
-    Client _myClient;
-    int _balance;
-    const Iban _iban;
-    const Date _creationDate;
-    Statut _statut;
+        [[nodiscard]] int getBalance() const;
+        [[nodiscard]] const Iban &getIban() const;
+        [[nodiscard]] const Date &getCreationDate() const;
+        [[nodiscard]] Statut getStatut() const;
+        void setBalance(int value);
+        void setStatut(const Statut& statut);
 
-    [[maybe_unused]] void setStatut(Statut statut);
-};
+    private:
+        consumer::Client _myClient;
+        int _balance;
+        const Iban _iban;
+        const Date _creationDate;
+        Statut _statut;
+    };
 
-bool isAccount(const int &balance, const Iban &iban, const Date &creationDate);
-bool isAccountLocked(const Account &account);
+    bool isAccount(const int &balance, const Iban &iban, const Date &creationDate);
+    bool isAccountLocked(const Account &account);
+
 
 
 #endif //TD1_ACCOUNT_H

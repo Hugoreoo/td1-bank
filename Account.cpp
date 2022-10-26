@@ -5,54 +5,52 @@
 #include "Account.h"
 #include <cassert>
 
-Account::Account(int balance, Client& myClient) : _balance(balance), _myClient(myClient), _iban(Iban()), _creationDate(getCurrentDate()),
-                                                                     _statut(UNLOCKED) {
 
-    bool statut = isAccount(balance, _iban, _creationDate);
-    assert(statut && "Account is not valid");
-}
+    Account::Account(int balance, consumer::Client& myClient) : _balance(balance), _myClient(myClient), _iban(Iban()), _creationDate(getCurrentDate()),
+                                                                         _statut(UNLOCKED) {
 
-int Account::getBalance() const {
-    return _balance;
-}
+        bool statut = isAccount(balance, _iban, _creationDate);
+        assert(statut && "Account is not valid");
+    }
 
-const Iban &Account::getIban() const {
-    return _iban;
-}
+    int Account::getBalance() const {
+        return _balance;
+    }
 
-const Date &Account::getCreationDate() const {
-    return _creationDate;
-}
+    const Iban &Account::getIban() const {
+        return _iban;
+    }
 
-Statut Account::getStatut() const {
-    return _statut;
-}
+    const Date &Account::getCreationDate() const {
+        return _creationDate;
+    }
 
-[[maybe_unused]] void Account::setStatut(Statut statut) {
-    _statut = statut;
-}
+    Statut Account::getStatut() const {
+        return _statut;
+    }
 
-void Account::setBalance(int value) {
-    this->_balance = _balance + value;
-}
+    void Account::setBalance(int value) {
+        this->_balance = _balance + value;
+    }
 
-void Account::setStatutt(const Statut& statut) 
-{
-    this->_statut = statut;
-}
+    void Account::setStatut(const Statut& statut) 
+    {
+        this->_statut = statut;
+    }
 
-bool isAccount(const int &balance, const Iban &iban, const Date &creationDate) {
+    bool isAccount(const int &balance, const Iban &iban, const Date &creationDate) {
 
-    if (balance < 0)
-        return false;
-    return true;
-
-}
-
-bool isAccountLocked(const Account &account) {
-
-    if (account.getStatut() == LOCKED)
+        if (balance < 0)
+            return false;
         return true;
-    return false;
 
-}
+    }
+
+    bool isAccountLocked(const Account &account) {
+
+        if (account.getStatut() == LOCKED)
+            return true;
+        return false;
+
+    }
+

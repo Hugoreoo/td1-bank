@@ -2,7 +2,7 @@
 
 int main() {
 
-    Bank myBank;
+    management::Bank myBank;
 
     myBank.createClient("Goncalves", "Hugo", 03, 12, 2001, "oui@oui", "048975389", 5, "Rue Courtepee", "DIJON", 21000);
     myBank.createClient("Benameur", "Camil", 07, 23, 2001, "dhtzefzeeef@oui", "04897533389", 5, "Rue Courtepee", "DIJON", 21000);
