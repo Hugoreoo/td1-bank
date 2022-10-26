@@ -34,7 +34,7 @@ namespace management {
         void accountDeposit(const std::string& srcIban, int value);
         void accountWithdrawal(const std::string& srcIban, int value);
 
-        void addTransaction(transaction::TransactionType transactionType, Account *srcAccount, Account *destAccount, nmsdate::Date date, nmstime::Time time, unsigned int value, std::string message = "none", bool statut = true);
+        void addTransaction(transaction::TransactionType transactionType,Account *srcAccount, Account *destAccount, nmsdate::Date date, nmstime::Time time, unsigned int value, std::string message = "none", bool statut = true);
 
         consumer::Client* getClientById(const unsigned int& id);
         Account* getAccountByIban(const std::string& iban);
