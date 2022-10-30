@@ -10,7 +10,7 @@ namespace address {
     Address::Address(unsigned int number, std::string street, std::string city, unsigned int  zipCode)
             : _number(number), _street(std::move(street)), _city(std::move(city)), _zipCode(zipCode) {}
 
-    unsigned int Address::getNumber() const {
+    const unsigned int &Address::getNumber() const {
         return _number;
     }
 

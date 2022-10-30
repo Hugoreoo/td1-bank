@@ -13,35 +13,35 @@ namespace transaction {
         _transactionType(transactionType), _destAccount(destAccount), _date(date), _time(time), _value(value), _srcAccount(srcAccount), _message(std::move(message)), _statut(statut) {
     }
 
-    [[maybe_unused]] TransactionType Transaction::getTransactionType() const {
+    const TransactionType &Transaction::getTransactionType() const {
         return _transactionType;
     }
 
-    Account Transaction::getSrcAccount() const {
+    const Account &Transaction::getSrcAccount() const {
         return *_srcAccount;
     }
 
-    Account Transaction::getDestAccount() const {
+    const Account &Transaction::getDestAccount() const {
         return *_destAccount;
     }
 
-    nmsdate::Date Transaction::getDate() const {
+    const nmsdate::Date &Transaction::getDate() const {
         return _date;
     }
 
-    nmstime::Time Transaction::getTime() const {
+    const nmstime::Time &Transaction::getTime() const {
         return _time;
     }
 
-    unsigned int Transaction::getValue() const {
+    const unsigned int &Transaction::getValue() const {
         return _value;
     }
 
-    std::string Transaction::getMessage() const {
+    const std::string &Transaction::getMessage() const {
         return _message;
     }
 
-    bool Transaction::getStatut() const {
+    const bool &Transaction::getStatut() const {
         return _statut;
     }
 

@@ -13,17 +13,20 @@
 
 namespace management {
 
-    void Bank::createClient(const std::string& name, const std::string& firstname, int birthMonth, int birthDay, int birthYear,
-                            const std::string& email, const std::string& phoneNumber, int addressNumber, std::string addressStreet,
-                            std::string addressCity, int addressZipCode) {
-
+    void Bank::createClient(const std::string& name, const std::string& firstname, int birthMonth, int birthDay, int birthYear, const std::string& email, const std::string& phoneNumber, int addressNumber, std::string addressStreet, std::string addressCity, int addressZipCode) 
+    {
         this->_myClients.push_back(new consumer::Client(name, firstname, nmsdate::Date(birthMonth, birthDay, birthYear), email, phoneNumber, address::Address(addressNumber, std::move(addressStreet), std::move(addressCity), addressZipCode)));
-
     }
 
-    void Bank::createAccount(int balance, consumer::Client* client){
-
+    void Bank::createAccount(const int balance, consumer::Client* client)
+    {
         _myAccounts.push_back(new Account(balance, *client));
+        client->setAccount(_myAccounts.at(_myAccounts.size() - 1));
+    }
+
+    void Bank::createSaving(const int balance, const float rate, consumer::Client* client) 
+    {
+        _myAccounts.push_back(new Saving(balance, rate, *client));
         client->setAccount(_myAccounts.at(_myAccounts.size() - 1));
     }
 
@@ -37,20 +40,13 @@ namespace management {
         getAccountByIban(iban)->setStatut(UNLOCKED);
     }
 
-    void Bank::printMyClients() {
-
-        for (long unsigned int i = 0; i < this->_myClients.size(); ++i)
-        {
-            std::cout << "-------------------------------------------------------------------------------| Client |-------------------------------------------------------------------------------" << std::endl << std::endl;
-            std::cout << "=====> ID: " << _myClients.at(i)->getId();
-            std::cout << "  Name: " << _myClients.at(i)->getName();
-            std::cout << "  Firstname: " << _myClients.at(i)->getFirstname();
-            _myClients.at(i)->printMyAccounts();
-            std::cout << std::endl << /*"--------------------------------------------------------------------------------| END |--------------------------------------------------------------------------------" <<*/ std::endl;
-        }
-
+    const std::vector<consumer::Client *> &Bank::getMyClients() const {
+        return _myClients;
     }
 
+    const std::vector<transaction::Transaction *> &Bank::getMyHistory() const {
+        return _myHistory;
+    }
 
     void Bank::accountPayment(const std::string& srcIban, const std::string& destIban, int value, std::string message)
     {
@@ -123,28 +119,12 @@ namespace management {
         return nullptr;
     }
 
-
-    void Bank::printMyHistory() {
-
-        std::cout << std::endl << "-----------------------------------------------------------------------------| History |-----------------------------------------------------------------------------" << std::endl << std::endl;
-
-        for (long unsigned int i = 0; i < this->_myHistory.size(); ++i)
-        {
-            std::cout << "--------------------------------------------------------------------------------------------------------------------------------------------------------------------" << std::endl;
-            std::cout << to_String(_myHistory.at(i)) << std::endl;
-            std::cout << "--------------------------------------------------------------------------------------------------------------------------------------------------------------------" << std::endl;
-        }
-
-        std::cout << std::endl << "--------------------------------------------------------------------------------| END |---------------------------------------------------------------------------------" << std::endl << std::endl;
-
-    }
-
     void Bank::addTransaction(transaction::TransactionType transactionType, Account *srcAccount, Account *destAccount, nmsdate::Date date, nmstime::Time time, unsigned int value, std::string message, bool statut) 
     {
         this->_myHistory.push_back(new transaction::Transaction(transactionType, destAccount, date, time, value, srcAccount, std::move(message), statut));
     }
 
-    [[maybe_unused]] void Bank::deleteClient(unsigned int id) {
+    [[maybe_unused]] void Bank::deleteClient(const unsigned int id) {
 
         for (long unsigned int i = 0; i < _myClients.size(); ++i)
         {
@@ -181,4 +161,34 @@ namespace management {
         }
 
     }
+
+    void printMyClients(const std::vector<consumer::Client *>& clients) {
+
+        for (long unsigned int i = 0; i < clients.size(); ++i)
+        {
+            std::cout << "-------------------------------------------------------------------------------| Client |-------------------------------------------------------------------------------" << std::endl << std::endl;
+            std::cout << "=====> ID: " << clients.at(i)->getId();
+            std::cout << "  Name: " << clients.at(i)->getName();
+            std::cout << "  Firstname: " << clients.at(i)->getFirstname();
+            consumer::printMyAccounts(clients.at(i)->getMyAccounts());
+            std::cout << std::endl << /*"--------------------------------------------------------------------------------| END |--------------------------------------------------------------------------------" <<*/ std::endl;
+        }
+
+    }
+
+    void printMyHistory(const std::vector<transaction::Transaction *>& history) {
+
+        std::cout << std::endl << "-----------------------------------------------------------------------------| History |-----------------------------------------------------------------------------" << std::endl << std::endl;
+
+        for (long unsigned int i = 0; i < history.size(); ++i)
+        {
+            std::cout << "--------------------------------------------------------------------------------------------------------------------------------------------------------------------" << std::endl;
+            std::cout << to_String(history.at(i)) << std::endl;
+            std::cout << "--------------------------------------------------------------------------------------------------------------------------------------------------------------------" << std::endl;
+        }
+
+        std::cout << std::endl << "--------------------------------------------------------------------------------| END |---------------------------------------------------------------------------------" << std::endl << std::endl;
+
+    }
+
 }

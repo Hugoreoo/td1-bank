@@ -10,6 +10,7 @@ int main() {
 
     myBank.createAccount(2000, myBank.getClientById(36753562));
     myBank.createAccount(3000, myBank.getClientById(91270936));
+    myBank.createSaving(20, 2.0, myBank.getClientById(91270936));
 
     //myBank.lockedAccount("FR76QQQVJJ5IIU531GVYX99BWDEKBUTAJ8");
 
@@ -19,8 +20,8 @@ int main() {
 
     //myBank.deleteClient(17409488);
 
-    myBank.printMyClients();
-    myBank.printMyHistory();
+    management::printMyClients(myBank.getMyClients());
+    management::printMyHistory(myBank.getMyHistory());
 
     return 0;
 }

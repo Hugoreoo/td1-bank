@@ -7,14 +7,13 @@
 
 
 
-    Account::Account(int balance, consumer::Client& myClient) : _balance(balance), _myClient(myClient), _iban(iban::Iban()), _creationDate(nmsdate::getCurrentDate()),
-                                                                         _statut(UNLOCKED) {
-
+    Account::Account(int balance, consumer::Client& myClient) : _balance(balance), _myClient(myClient), _iban(iban::Iban()), _creationDate(nmsdate::getCurrentDate()), _statut(UNLOCKED)
+    {
         bool statut = isAccount(balance, _iban, _creationDate);
         assert(statut && "Account is not valid");
     }
 
-    int Account::getBalance() const {
+    const int &Account::getBalance() const {
         return _balance;
     }
 
@@ -26,7 +25,7 @@
         return _creationDate;
     }
 
-    Statut Account::getStatut() const {
+    const Statut &Account::getStatut() const {
         return _statut;
     }
 
@@ -37,6 +36,16 @@
     void Account::setStatut(const Statut& statut) 
     {
         this->_statut = statut;
+    }
+
+    Saving::Saving(int balance, float rate, consumer::Client& myClient) : Account(balance, myClient), _rate(rate)
+    {
+        bool statut = isAccount(balance, _iban, _creationDate);
+        assert(statut && "Saving is not valid");
+    }
+
+    const float &Saving::getRate() const {
+        return _rate;
     }
 
     bool isAccount(const int &balance, const iban::Iban &iban, const nmsdate::Date &creationDate) {

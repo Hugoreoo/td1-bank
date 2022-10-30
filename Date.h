@@ -14,9 +14,9 @@ namespace nmsdate {
     public:
         explicit Date(int month = 01, int day = 01, int year = 2000);
 
-        [[nodiscard]] int getYear() const;
-        [[nodiscard]] int getMonth() const;
-        [[nodiscard]] int getDay() const;
+        [[nodiscard]] const int &getYear() const;
+        [[nodiscard]] const int &getMonth() const;
+        [[nodiscard]] const int &getDay() const;
 
     private:
         int _year;

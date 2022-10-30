@@ -15,7 +15,7 @@ namespace address {
 
         Address(unsigned int number, std::string street, std::string city, unsigned int  zipCode);
 
-        [[nodiscard]] unsigned int getNumber() const;
+        [[nodiscard]] const unsigned int &getNumber() const;
         [[nodiscard]] const std::string &getStreet() const;
         [[nodiscard]] const std::string &getCity() const;
         [[nodiscard]] const unsigned int  &getZipCode() const;

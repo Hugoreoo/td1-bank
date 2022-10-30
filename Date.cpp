@@ -13,15 +13,15 @@ namespace nmsdate {
         assert(statut && "Date is not valid");
     }
 
-    int Date::getYear() const {
+    const int &Date::getYear() const {
         return _year;
     }
 
-    int Date::getMonth() const {
+    const int &Date::getMonth() const {
         return _month;
     }
 
-    int Date::getDay() const {
+    const int &Date::getDay() const {
         return _day;
     }
 

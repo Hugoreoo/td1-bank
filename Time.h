@@ -15,9 +15,9 @@ namespace nmstime {
 
         Time(unsigned int hour, unsigned int minute, unsigned int second = 0);
 
-        [[nodiscard]] unsigned int getHour() const;
-        [[nodiscard]] unsigned int getMinute() const;
-        [[nodiscard]] unsigned int getSecond() const;
+        [[nodiscard]] const unsigned int &getHour() const;
+        [[nodiscard]] const unsigned int &getMinute() const;
+        [[nodiscard]] const unsigned int &getSecond() const;
 
     private:
         unsigned int _hour;

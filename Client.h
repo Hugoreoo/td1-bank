@@ -21,18 +21,17 @@ namespace consumer {
 
         [[nodiscard]] const std::string &getName() const;
         [[nodiscard]] const std::string &getFirstname() const;
-        [[nodiscard]] unsigned int getId() const;
-        [[maybe_unused]] [[nodiscard]] const nmsdate::Date &getBirthday() const;
-        [[maybe_unused]] [[nodiscard]] const std::string &getEmail() const;
-        [[maybe_unused]] [[nodiscard]] const std::string &getPhoneNumber() const;
-        [[maybe_unused]] [[nodiscard]] const address::Address &getAddress() const;
-        [[maybe_unused]] [[nodiscard]] const nmsdate::Date &getCreationDate() const;
-        [[maybe_unused]] [[nodiscard]] const std::vector<Account *> &getMyAccounts() const;
-        [[maybe_unused]] void setName(const std::string &name);
+        [[nodiscard]] const unsigned int &getId() const;
+        [[nodiscard]] const nmsdate::Date &getBirthday() const;
+        [[nodiscard]] const std::string &getEmail() const;
+        [[nodiscard]] const std::string &getPhoneNumber() const;
+        [[nodiscard]] const address::Address &getAddress() const;
+        [[nodiscard]] const nmsdate::Date &getCreationDate() const;
+        [[nodiscard]] const std::vector<Account *> &getMyAccounts() const;
 
         void setAccount(Account* account);
+        void setName(const std::string &name);
         void deleteAccount(const std::string& iban);
-        void printMyAccounts();
 
     private:
         std::vector<Account *> _myAccounts;
@@ -47,8 +46,9 @@ namespace consumer {
 
     };
 
+    void printMyAccounts(const std::vector<Account *>& accounts);
+    bool isClient([[maybe_unused]] const std::string &name, [[maybe_unused]] const std::string &firstname, [[maybe_unused]] const nmsdate::Date &birthday, const std::string &email, [[maybe_unused]] const std::string &phoneNumer, [[maybe_unused]] const unsigned int &id, [[maybe_unused]] const address::Address &address);
     unsigned int randomId(const int &len = 8);
-    bool isClient(const std::string &name, const std::string &firstname, const nmsdate::Date &birthday, const std::string &email, const std::string &phoneNumer, const unsigned int &id, const address::Address &address);
 
 }
 

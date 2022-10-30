@@ -13,22 +13,21 @@ namespace nmstime {
         assert(statut && "Time is not valid");
     }
 
-    unsigned int Time::getHour() const {
+    const unsigned int &Time::getHour() const {
         return _hour;
     }
 
-    unsigned int Time::getMinute() const {
+    const unsigned int &Time::getMinute() const {
         return _minute;
     }
 
-    unsigned int Time::getSecond() const {
+    const unsigned int &Time::getSecond() const {
         return _second;
     }
 
     bool isTime(const unsigned int& hour, const unsigned int& min, const unsigned int& sec) {
         if((hour > 23) || (min > 59) || (sec > 59))
             return false;
-
         return true;
     }
 
