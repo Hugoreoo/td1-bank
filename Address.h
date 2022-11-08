@@ -12,13 +12,14 @@ namespace address {
     class Address {
 
     public:
+        //Constructor
+            Address(unsigned int number, std::string street, std::string city, unsigned int  zipCode);
 
-        Address(unsigned int number, std::string street, std::string city, unsigned int  zipCode);
-
-        [[nodiscard]] const unsigned int &getNumber() const;
-        [[nodiscard]] const std::string &getStreet() const;
-        [[nodiscard]] const std::string &getCity() const;
-        [[nodiscard]] const unsigned int  &getZipCode() const;
+        //GETTERS & SETTERS
+            [[nodiscard]] const unsigned int &getNumber() const;
+            [[nodiscard]] const std::string &getStreet() const;
+            [[nodiscard]] const std::string &getCity() const;
+            [[nodiscard]] const unsigned int  &getZipCode() const;
 
     private:
         unsigned int _number;
@@ -28,6 +29,7 @@ namespace address {
 
     };
 
+    //FRIEND FUNCTIONS
     std::string to_String(const Address &address);
 }
 

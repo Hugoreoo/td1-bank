@@ -11,6 +11,7 @@
 #include "Transaction.h"
 #include <vector>
 
+//ASSOCIATION CLASSES
 class Account;
 class Client;
 class Transaction;
@@ -21,7 +22,7 @@ namespace management {
 
     public:
 
-        //SETTERS
+        //GETTERS & SETTERS
         void createClient(const std::string& name, const std::string& firstname, int birthMonth, int birthDay, int birthYear, const std::string& email, const std::string& phoneNumber, int addressNumber, std::string addressStreet, std::string addressCity, int addressZipCode);
         void createAccount(const int balance, consumer::Client* client);
         void createSaving(const int balance, const float rate, consumer::Client* client);
@@ -32,7 +33,6 @@ namespace management {
         [[maybe_unused]] void lockedAccount(const std::string& iban);
         [[maybe_unused]] void unlockedAccount(const std::string& iban);
 
-        //GETTERS
         [[nodiscard]] const std::vector<consumer::Client *> &getMyClients() const;
         [[nodiscard]] const std::vector<transaction::Transaction *> &getMyHistory() const;
         consumer::Client* getClientById(const unsigned int& id);
@@ -52,7 +52,7 @@ namespace management {
 
     };
 
-    //FRIENDS
+    //FRIEND FUNCTIONS
     void printMyClients(const std::vector<consumer::Client *>& clients);
     void printMyHistory(const std::vector<transaction::Transaction *>& history);
 

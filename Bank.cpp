@@ -13,17 +13,42 @@
 
 namespace management {
 
+    /**
+     * METHOD: Create a client
+     * @param name
+     * @param firstname
+     * @param birthMonth
+     * @param birthDay
+     * @param birthYear
+     * @param email
+     * @param phoneNumber
+     * @param addressNumber
+     * @param addressStreet
+     * @param addressCity
+     * @param addressZipCode
+     */
     void Bank::createClient(const std::string& name, const std::string& firstname, int birthMonth, int birthDay, int birthYear, const std::string& email, const std::string& phoneNumber, int addressNumber, std::string addressStreet, std::string addressCity, int addressZipCode) 
     {
         this->_myClients.push_back(new consumer::Client(name, firstname, nmsdate::Date(birthMonth, birthDay, birthYear), email, phoneNumber, address::Address(addressNumber, std::move(addressStreet), std::move(addressCity), addressZipCode)));
     }
 
+    /**
+     * METHOD: Create an Account
+     * @param balance
+     * @param client
+     */
     void Bank::createAccount(const int balance, consumer::Client* client)
     {
         _myAccounts.push_back(new Account(balance, *client));
         client->setAccount(_myAccounts.at(_myAccounts.size() - 1));
     }
 
+    /**
+     * METHOD: Create a Saving Account
+     * @param balance
+     * @param rate
+     * @param client
+     */
     void Bank::createSaving(const int balance, const float rate, consumer::Client* client) 
     {
         _myAccounts.push_back(new Saving(balance, rate, *client));
